@@ -2,6 +2,8 @@
 @urlUsuarios = /api/user
 @urlCursos = /api/courses
 @urlUpload = /api/upload
+@urlChat = /api/chat
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoiUHJvZmVzb3IiLCJleHAiOjE3NDk0OTQyODIsImlhdCI6MTc0ODg4OTQ4Mn0.sVRJ2J5hDZ2ae3eohqdfE3Ec482TkYyn-0xlZYEKbro
 
 ### USER ###
 
@@ -28,7 +30,7 @@ Content-Type: application/json
 
 POST {{host}}{{urlCursos}}
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoiUHJvZmVzb3IiLCJleHAiOjE3NDk0OTQyODIsImlhdCI6MTc0ODg4OTQ4Mn0.sVRJ2J5hDZ2ae3eohqdfE3Ec482TkYyn-0xlZYEKbro
+Authorization: Bearer {{token}}
 
 {
   "name": "Matemáticas I",
@@ -38,6 +40,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb
 ### SUBIDA DE DOCUMENTO ###
 
 POST {{host}}{{urlUpload}}/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoiUHJvZmVzb3IiLCJleHAiOjE3NDk0OTQyODIsImlhdCI6MTc0ODg4OTQ4Mn0.sVRJ2J5hDZ2ae3eohqdfE3Ec482TkYyn-0xlZYEKbro
+Authorization: Bearer {{token}}
 
 @document=file://Users/fran/Desktop/PlanEmpresa.pdf
+
+### ENVIAR MENSAJE AL ASISTENTE ###
+POST {{host}}{{urlChat}}/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "message": "¿Qué temas se abordan en este curso?"
+}
+
+### OBTENER HISTORIAL ###
+GET {{host}}{{urlChat}}/1/history
+Authorization: Bearer {{token}}
+

@@ -1,7 +1,11 @@
 const router = require('express').Router();
+
 const { checkToken } = require('../../helpers/middlewares');
 const { getThreadByUserAndCourse, createThreadEntry } = require('../../models/thread.model');
-const { sendMessageToAssistant, createThread } = require('../../services/assistant.service');
+const { getCourseById } = require('../../models/courses.model');
+const { createThread, sendMessageToAssistant } = require('../../services/assistant.service');
+const { saveMessage } = require('../../models/message.model');
+const { getMessagesByThread } = require('../../models/message.model');
 
 // POST /api/chat/:courseId
 router.post('/:courseId', checkToken, async (req, res) => {
@@ -10,31 +14,67 @@ router.post('/:courseId', checkToken, async (req, res) => {
         const course_id = req.params.courseId;
         const user_id = req.user.id;
 
-        if (!message) return res.status(400).json({ fatal: 'Mensaje vacío' });
+        if (!message || message.trim().length === 0) {
+            return res.status(400).json({ fatal: 'Mensaje vacío' });
+        }
 
-        // Ver si ya hay un thread creado
-        const [existing] = await getThreadByUserAndCourse(user_id, course_id);
+        // Obtener assistant_id del curso
+        const [courseResult] = await getCourseById(course_id);
+        const course = courseResult[0];
+
+        if (!course || !course.assistant_id) {
+            return res.status(400).json({ fatal: 'El curso no tiene assistant asociado' });
+        }
+
+        const assistantId = course.assistant_id;
+
+        // Ver si ya existe un thread para este usuario y curso
+        const [threadResult] = await getThreadByUserAndCourse(user_id, course_id);
 
         let threadId;
-        if (existing.length > 0) {
-            threadId = existing[0].assistant_thread_id;
+
+        if (threadResult.length > 0) {
+            threadId = threadResult[0].assistant_thread_id;
         } else {
-            // Crear nuevo thread y guardar en BD
             threadId = await createThread();
             await createThreadEntry({ user_id, course_id, assistant_thread_id: threadId });
         }
 
-        // Aquí necesitarás recuperar también el assistantId asociado al curso
-        // Puedes guardarlo en la tabla courses o tenerlo de forma centralizada
-        const assistantId = '[AQUÍ_TU_ASSISTANT_ID]'; // temporal
-
+        // Enviar mensaje al assistant
         const respuesta = await sendMessageToAssistant({ assistantId, threadId, message });
 
         res.json({ respuesta });
+
+        // Guardar ambos mensajes
+        await saveMessage({ thread_id: threadId, user_id, course_id, role: 'user', content: message });
+        await saveMessage({ thread_id: threadId, user_id, course_id, role: 'assistant', content: respuesta });
 
     } catch (error) {
         res.status(500).json({ fatal: error.message });
     }
 });
+
+// Ruta para recuperar el historial del curso
+router.get('/:courseId/history', checkToken, async (req, res) => {
+    try {
+        const course_id = req.params.courseId;
+        const user_id = req.user.id;
+
+        // Buscar thread local
+        const [threadResult] = await getThreadByUserAndCourse(user_id, course_id);
+        if (threadResult.length === 0) {
+            return res.status(404).json({ fatal: 'No existe conversación para este curso' });
+        }
+
+        const thread_id = threadResult[0].id;
+        const [messages] = await getMessagesByThread(thread_id);
+
+        res.json(messages);
+
+    } catch (error) {
+        res.status(500).json({ fatal: error.message });
+    }
+});
+
 
 module.exports = router;
