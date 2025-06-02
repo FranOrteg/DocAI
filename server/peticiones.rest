@@ -7,6 +7,17 @@ POST {{host}}{{urlUsuarios}}/login
 Content-Type: application/json
 
 { 
-"email": "fran@mail.es",
+"email": "feli@mail.es",
 "password": "1234"
+}
+
+###
+POST {{host}}{{urlUsuarios}}/register
+Content-Type: application/json
+
+{
+    "name":"Fan",
+    "email": "fan@mail.es",
+    "password": "1234",
+    "role": "Profesor"
 }

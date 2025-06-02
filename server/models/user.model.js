@@ -1,3 +1,11 @@
+
+//Crear usuario 
+const createUser = ({ name, email, password, role}) => {
+    return db.query('INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)',
+        [name,email, password, role]
+    );
+}
+
 //Busco usuario por email
 const getByEmail = (email) => {
     return db.query('SELECT * FROM users WHERE email = ?',
@@ -13,5 +21,6 @@ const getById = (userId) => {
 
 module.exports = {
     getByEmail,
-    getById
+    getById,
+    createUser
 }

@@ -4,10 +4,10 @@ const jwt = require('jsonwebtoken');
 const createToken = (user) => {
     const obj = {
         user_id: user.id,
-        role: user.rol,
+        role: user.role,
         exp: dayjs().add(7, 'days').unix()
     }
-    return jwt.sign(obj, 'clave fuerte');
+    return jwt.sign(obj, process.env.JWT_SECRET);
 }
 
 module.exports = {

@@ -25,11 +25,12 @@ const checkToken = async (req, res, next) => {
 };
 
 const checkUser = (req, res, next) => {
-    if (req.usuarios.rol !== 'Administrador' || 'Profesor' || 'Alumno') {
-        res.json({ fatal: 'El usuario logueado no es el que debia' })
+    const rolesPermitidos = ['Administrador', 'Profesor', 'Alumno'];
+    if (!rolesPermitidos.includes(req.user.rol)) {
+        return res.json({ fatal: 'El usuario no tiene permisos válidos' });
     }
     next();
-}
+};
 
 
 module.exports = {
