@@ -9,5 +9,8 @@ router.use('/courses', require('./api/courses'));
 // Documentos
 router.use('/upload', require('./api/upload'));
 
+// Chat
+router.use('/chat', require('./api/chat'));
+
 
 module.exports = router;
