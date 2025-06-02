@@ -28,17 +28,16 @@ Content-Type: application/json
 
 POST {{host}}{{urlCursos}}
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoiUHJvZmVzb3IiLCJleHAiOjE3NDk0ODI1NzYsImlhdCI6MTc0ODg3Nzc3Nn0.04hTbo0iVZ3wi6HXaa4VW4nE33dM2YFuxsR07t6oTz0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoiUHJvZmVzb3IiLCJleHAiOjE3NDk0OTQyODIsImlhdCI6MTc0ODg4OTQ4Mn0.sVRJ2J5hDZ2ae3eohqdfE3Ec482TkYyn-0xlZYEKbro
 
 {
-  "name": "Matemáticas II",
+  "name": "Matemáticas I",
   "description": "Aritmética"
 }
 
 ### SUBIDA DE DOCUMENTO ###
 
-POST {{host}}{{urlUpload}}/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoiUHJvZmVzb3IiLCJleHAiOjE3NDk0ODQxNjksImlhdCI6MTc0ODg3OTM2OX0.2FWI3d9_zizI5h8c8M8XZ2H96TJZm8XXuEbl4ZOemUU
+POST {{host}}{{urlUpload}}/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoiUHJvZmVzb3IiLCJleHAiOjE3NDk0OTQyODIsImlhdCI6MTc0ODg4OTQ4Mn0.sVRJ2J5hDZ2ae3eohqdfE3Ec482TkYyn-0xlZYEKbro
 
-@document=file://home/franorteg/Escritorio/pueba.pdf
-
+@document=file://Users/fran/Desktop/PlanEmpresa.pdf

@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const { checkToken } = require('../../helpers/middlewares');
 const { saveDocument } = require('../../models/document.model');
+const { readTextFromFile } = require('../../helpers/fileReader');
 
 // Configuración del almacenamiento
 const storage = multer.diskStorage({
@@ -41,12 +42,17 @@ router.post('/:courseId', checkToken, upload.single('document'), async (req, res
         };
 
         const [result] = await saveDocument(docData);
+        const fullPath = path.join(__dirname, '../../uploads', file.filename);
+        const text = await readTextFromFile(fullPath);
+
+        console.log('📝 Texto extraído del archivo:', text.slice(0, 300));
+
         res.json({ success: 'Archivo subido', docId: result.insertId });
-        console.log('📦 Archivo recibido:', req.file);
 
     } catch (error) {
         res.status(500).json({ fatal: error.message });
     }
 });
+
 
 module.exports = router;
