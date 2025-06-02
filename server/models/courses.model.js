@@ -12,7 +12,12 @@ const getCoursesByUserId = (userId) => {
     return db.query('SELECT * FROM courses WHERE user_id = ?', [userId]);
 };
 
-// Establecer Assistant ID
+// Obtener el curso por ID
+const getCourseById = (id) => {
+    return db.query('SELECT * FROM courses WHERE id = ?', [id]);
+};
+
+// Actualizar el curso
 const setAssistantId = (course_id, assistant_id) => {
     return db.query('UPDATE courses SET assistant_id = ? WHERE id = ?', [assistant_id, course_id]);
 };
@@ -26,5 +31,6 @@ module.exports = {
     createCourse,
     getCoursesByUserId,
     setAssistantId,
-    getAssistantId
+    getAssistantId,
+    getCourseById
 };
