@@ -1,13 +1,15 @@
 @host = http://localhost:3000
 @urlUsuarios = /api/user
+@urlCursos = /api/courses
+@urlUpload = /api/upload
 
-### user
+### USER ###
 
 POST {{host}}{{urlUsuarios}}/login
 Content-Type: application/json
 
 { 
-"email": "feli@mail.es",
+"email": "fran@mail.es",
 "password": "1234"
 }
 
@@ -16,8 +18,27 @@ POST {{host}}{{urlUsuarios}}/register
 Content-Type: application/json
 
 {
-    "name":"Fan",
-    "email": "fan@mail.es",
+    "name":"Fran",
+    "email": "fran@mail.es",
     "password": "1234",
     "role": "Profesor"
 }
+
+### CURSOS ###
+
+POST {{host}}{{urlCursos}}
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoiUHJvZmVzb3IiLCJleHAiOjE3NDk0ODI1NzYsImlhdCI6MTc0ODg3Nzc3Nn0.04hTbo0iVZ3wi6HXaa4VW4nE33dM2YFuxsR07t6oTz0
+
+{
+  "name": "Matemáticas II",
+  "description": "Aritmética"
+}
+
+### SUBIDA DE DOCUMENTO ###
+
+POST {{host}}{{urlUpload}}/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJyb2xlIjoiUHJvZmVzb3IiLCJleHAiOjE3NDk0ODQxNjksImlhdCI6MTc0ODg3OTM2OX0.2FWI3d9_zizI5h8c8M8XZ2H96TJZm8XXuEbl4ZOemUU
+
+@document=file://home/franorteg/Escritorio/pueba.pdf
+
