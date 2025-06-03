@@ -1,0 +1,30 @@
+.chat-box {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    max-width: 600px;
+    margin: auto;
+  }
+  .user {
+    text-align: right;
+    background-color: #e0f7fa;
+    margin: 5px 0;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+  .assistant {
+    text-align: left;
+    background-color: #f1f8e9;
+    margin: 5px 0;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+  .input-box {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  input {
+    flex: 1;
+    padding: 0.5rem;
+  }
+  

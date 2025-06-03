@@ -1,1 +1,11 @@
-<p>assistant-chat works!</p>
+<div class="chat-box">
+    <div *ngFor="let msg of messages" [class]="msg.from">
+      <p>{{ msg.text }}</p>
+    </div>
+  
+    <div class="input-box">
+      <input [(ngModel)]="userInput" (keydown.enter)="sendMessage()" placeholder="Escribe tu mensaje..." />
+      <button (click)="sendMessage()" [disabled]="loading || !userInput.trim()">Enviar</button>
+    </div>
+  </div>
+  
