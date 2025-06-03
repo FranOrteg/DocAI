@@ -1,7 +1,8 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DocumentService } from '../../services/document.service';
+import { DocumentListComponent } from '../document-list/document-list.component';
 
 @Component({
   selector: 'app-upload-document',
@@ -11,11 +12,11 @@ import { DocumentService } from '../../services/document.service';
   styleUrls: ['./upload-document.component.css']
 })
 export class UploadDocumentComponent {
-
+  @Input() courseId!: number;
   @Output() uploadSuccess = new EventEmitter<void>();
+  @ViewChild('docList') docListComponent!: DocumentListComponent;
 
   uploadForm = new FormGroup({
-    courseId: new FormControl<number | null>(null, Validators.required),
     document: new FormControl<File | null>(null, Validators.required)
   });
 
@@ -27,13 +28,12 @@ export class UploadDocumentComponent {
   }
 
   async onSubmit() {
-    if (this.uploadForm.invalid) return;
+    if (this.uploadForm.invalid || !this.courseId) return;
 
-    const courseId = this.uploadForm.value.courseId!;
     const file = this.uploadForm.value.document!;
 
     try {
-      await this.documentService.uploadDocument(courseId, file);
+      await this.documentService.uploadDocument(this.courseId, file);
       alert('✅ Documento subido correctamente');
       this.uploadForm.reset();
       this.uploadSuccess.emit();
@@ -42,4 +42,9 @@ export class UploadDocumentComponent {
       alert('Error al subir documento');
     }
   }
+
+  onDocumentUploaded() {
+    this.docListComponent.refresh();
+  }
+  
 }

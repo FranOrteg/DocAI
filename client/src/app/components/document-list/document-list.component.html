@@ -1,0 +1,9 @@
+<div *ngIf="loading">📦 Cargando documentos...</div>
+
+<ul *ngIf="!loading && documents.length > 0">
+  <li *ngFor="let doc of documents">
+    <a [href]="doc.url" target="_blank">{{ doc.filename }}</a> ({{ doc.status }})
+  </li>
+</ul>
+
+<p *ngIf="!loading && documents.length === 0">⚠️ No hay documentos subidos aún.</p>
