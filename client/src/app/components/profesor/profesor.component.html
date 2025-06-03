@@ -1,7 +1,16 @@
 <h2>Panel del Profesor</h2>
 
-<app-upload-document [courseId]="courseId" (uploadSuccess)="onDocumentUploaded()"></app-upload-document>
+<app-course-selector (courseSelected)="onCourseSelected($event)"></app-course-selector>
 
-<app-document-list #docList [courseId]="courseId"></app-document-list>
+<div *ngIf="selectedCourse">
+  <h3>Curso: {{ selectedCourse.name }}</h3>
 
-<app-assistant-chat [courseId]="courseId"></app-assistant-chat>
+  <app-upload-document
+    [courseId]="selectedCourse.id"
+    (uploadSuccess)="onDocumentUploaded()"
+  ></app-upload-document>
+
+  <app-document-list [courseId]="selectedCourse.id"></app-document-list>
+
+  <app-assistant-chat [courseId]="selectedCourse.id"></app-assistant-chat>
+</div>
