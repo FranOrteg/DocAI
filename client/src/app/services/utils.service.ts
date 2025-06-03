@@ -8,11 +8,17 @@ export class UtilsService {
 
   constructor() { }
 
-  getToken() {
+  getToken(): any | null {
+    if (typeof window === 'undefined') return null; 
+  
     const token = localStorage.getItem('token');
     if (!token) return null;
   
-    const decoded: any = jwtDecode(token as string);
-    return decoded;
+    try {
+      return jwtDecode<any>(token);
+    } catch {
+      return null;
+    }
   }
+  
 }

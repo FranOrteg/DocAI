@@ -24,6 +24,7 @@ export class ProfesorComponent {
   }
 
   onCourseSelected(course: any) {
+    console.log('📚 Curso seleccionado:', course); // ← añade esto
     this.selectedCourse = course;
   }
 }

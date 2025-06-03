@@ -11,7 +11,13 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = ['http://localhost:4200']; // Cambia esto si tu frontend tiene otro puerto
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 app.use(logger('dev'));
 
 app.use(logger('dev'));

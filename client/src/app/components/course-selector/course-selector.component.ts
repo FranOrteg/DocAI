@@ -36,7 +36,9 @@ export class CourseSelectorComponent {
   onSelect(courseId: number | null) {
     const course = this.courses.find(c => c.id === courseId);
     if (course) {
+      console.log('🔍 Emitiendo curso:', course); // ← añade esto también
       this.courseSelected.emit(course);
     }
   }
+  
 }
