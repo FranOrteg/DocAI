@@ -16,4 +16,8 @@ export class DocumentService {
 
     return firstValueFrom(this.http.post(`${this.baseUrl}/${courseId}`, formData));
   }
+
+  getDocumentsByCourse(courseId: number) {
+    return firstValueFrom(this.http.get<any[]>(`${this.baseUrl}/courses/${courseId}`));
+  }
 }
