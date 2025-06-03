@@ -1,12 +1,11 @@
 
 // Crear curso
-const createCourse = ({ user_id, name, description, vector_store_id }) => {
+const createCourse = ({ user_id, name, description, assistant_id, vector_store_id }) => {
     return db.query(
-      'INSERT INTO courses (user_id, name, description, vector_store_id) VALUES (?, ?, ?, ?)',
-      [user_id, name, description, vector_store_id]
+        'INSERT INTO courses (user_id, name, description, assistant_id, vector_store_id) VALUES (?, ?, ?, ?, ?)',
+        [user_id, name, description, assistant_id, vector_store_id]
     );
-  };
-  
+};
 
 // Obtener Curso por ID
 const getCoursesByUserId = (userId) => {

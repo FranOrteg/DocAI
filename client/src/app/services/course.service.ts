@@ -17,4 +17,11 @@ export class CourseService {
       })
     );
   }
+
+  createCourse(data: { name: string, description: string }) {
+    return firstValueFrom
+    (this.http.post<any>(this.baseUrl, data, {
+      withCredentials: true
+    }));
+  }
 }

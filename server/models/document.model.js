@@ -14,7 +14,14 @@ const getDocumentsByCourse = (course_id) => {
     );
 };
 
+// Actualizar el estado del documento
+const updateDocumentStatus = (docId, status) => {
+  return db.query('UPDATE documents SET status = ? WHERE id = ?', [status, docId]);
+};
+
+
 module.exports = {
     saveDocument,
-    getDocumentsByCourse
+    getDocumentsByCourse,
+    updateDocumentStatus
 };
