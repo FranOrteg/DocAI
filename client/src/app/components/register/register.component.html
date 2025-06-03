@@ -1,29 +1,47 @@
-<div class="container">
-    <form [formGroup]="formularioRegister" (ngSubmit)="onSubmit()">
-      <div class="mb-3">
-        <label>Nombre</label>
-        <input class="form-control" formControlName="name" type="text">
-      </div>
-  
-      <div class="mb-3">
-        <label>Email</label>
-        <input class="form-control" formControlName="email" type="email">
-      </div>
-  
-      <div class="mb-3">
-        <label>Password</label>
-        <input class="form-control" [type]="passwordType" formControlName="password">
-        <button type="button" (click)="checkPasswordType()">👁️</button>
-      </div>
-  
-      <div class="mb-3">
-        <label>Rol</label>
-        <select class="form-control" formControlName="role">
-          <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
-        </select>
-      </div>
-  
-      <button type="submit" class="btn btn-primary" [disabled]="formularioRegister.invalid">Registrar</button>
-    </form>
+<div class="container position-relative">
+    <div class="formulario">
+        <h4>Register</h4>
+
+        <form [formGroup]="formularioRegister" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label>Nombre</label>
+              <input class="form-control" formControlName="name" type="text">
+              
+              <p class="error" *ngIf="checkError('name', 'required')">El campo nombre es requerido</p>
+      
+            </div>
+        
+            <div class="mb-3">
+              <label>Email</label>
+              <input class="form-control" formControlName="email" type="email">
+      
+              <p class="error" *ngIf="checkError('email', 'required')">El campo email es requerido</p>
+              <p class="error" *ngIf="checkError('email', 'pattern')">El email tiene un formato incorrecto</p>
+      
+            </div>
+        
+            <div class="mb-3">
+              <label>Password</label>
+              <input class="form-control" [type]="passwordType" formControlName="password">
+              <button type="button" (click)="checkPasswordType()">👁️</button>
+      
+              <p class="error" *ngIf="checkError('password', 'required')">El campo password es requerido</p>
+      
+            </div>
+        
+            <div class="mb-3">
+              <label>Role</label>
+              <select class="form-select" formControlName="role">
+                <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+              </select>
+      
+              <p class="error" *ngIf="checkError('role', 'required')">El campo rol es requerido</p>
+      
+            </div>
+        
+            <button type="submit" class="btn btn-primary" [disabled]="formularioRegister.invalid">Registrar</button>
+          </form>
+    </div>
+   
   </div>
   

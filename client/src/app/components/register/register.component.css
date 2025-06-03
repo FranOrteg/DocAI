@@ -1,0 +1,69 @@
+.error {
+    color: #c1d23e;
+}
+
+h4 {
+    font-family: 'Caveat', cursive;
+}
+
+.formulario {
+    max-width: 500px;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background-color: #2a3d6b;
+    color: white;
+}
+
+.formulario h4 {
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+form {
+    width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.form-control {
+    background-color: #2a3d6b;
+    border: 1px solid #c1d23e;
+    color: white;
+}
+
+.form-select {
+    background-color: #2a3d6b;
+    border: 1px solid #c1d23e;
+    color: white;
+}
+
+.password {
+    position: relative;
+}
+
+.btn-pass {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #2a3d6b;
+    border: 1px solid #2a3d6b;
+}
+
+.btn {
+    border: 1px solid #c1d23e;
+    background-color: #c1d23e;
+    color: b;
+    width: 200px;
+}
+
+.boton {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
