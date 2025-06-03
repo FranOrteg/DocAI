@@ -1,1 +1,29 @@
-<p>register works!</p>
+<div class="container">
+    <form [formGroup]="formularioRegister" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label>Nombre</label>
+        <input class="form-control" formControlName="name" type="text">
+      </div>
+  
+      <div class="mb-3">
+        <label>Email</label>
+        <input class="form-control" formControlName="email" type="email">
+      </div>
+  
+      <div class="mb-3">
+        <label>Password</label>
+        <input class="form-control" [type]="passwordType" formControlName="password">
+        <button type="button" (click)="checkPasswordType()">👁️</button>
+      </div>
+  
+      <div class="mb-3">
+        <label>Rol</label>
+        <select class="form-control" formControlName="role">
+          <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="formularioRegister.invalid">Registrar</button>
+    </form>
+  </div>
+  
