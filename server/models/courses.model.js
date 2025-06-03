@@ -1,11 +1,12 @@
 
 // Crear curso
-const createCourse = ({ user_id, name, description }) => {
+const createCourse = ({ user_id, name, description, vector_store_id }) => {
     return db.query(
-        'INSERT INTO courses (user_id, name, description) VALUES (?, ?, ?)',
-        [user_id, name, description]
+      'INSERT INTO courses (user_id, name, description, vector_store_id) VALUES (?, ?, ?, ?)',
+      [user_id, name, description, vector_store_id]
     );
-};
+  };
+  
 
 // Obtener Curso por ID
 const getCoursesByUserId = (userId) => {
@@ -27,10 +28,20 @@ const getAssistantId = (course_id) => {
     return db.query('SELECT assistant_id FROM courses WHERE id = ?', [course_id]);
 };
 
+// Establecer vector_store_id
+const setVectorStoreId = (course_id, vector_store_id) => {
+    return db.query(
+      'UPDATE courses SET vector_store_id = ? WHERE id = ?',
+      [vector_store_id, course_id]
+    );
+  };
+  
+
 module.exports = {
     createCourse,
     getCoursesByUserId,
     setAssistantId,
     getAssistantId,
-    getCourseById
+    getCourseById,
+    setVectorStoreId,
 };

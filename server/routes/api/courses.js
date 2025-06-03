@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { createCourse, getCoursesByUserId } = require('../../models/courses.model');
 const { checkToken } = require('../../helpers/middlewares');
+const { createAssistantForCourse, createVectorStore } = require('../../services/assistant.service'); 
+
 
 // Crear curso
 router.post('/', checkToken, async (req, res) => {
@@ -8,10 +10,23 @@ router.post('/', checkToken, async (req, res) => {
         const { name, description } = req.body;
         const user_id = req.user.id;
 
-        const [result] = await createCourse({ user_id, name, description });
-        res.json({ success: 'Curso creado', courseId: result.insertId });
+        // 🧠 1. Crear vector store y assistant
+        const vectorStoreId = await createVectorStore();
+        const assistantId = await createAssistantForCourse(vectorStoreId, name);
+
+        // 🧠 2. Crear curso con IDs asociados
+        const [result] = await createCourse({
+            user_id,
+            name,
+            description,
+            assistant_id: assistantId,
+            vector_store_id: vectorStoreId
+        });
+
+        res.json({ success: 'Curso creado', courseId: result.insertId, assistantId, vectorStoreId });
     } catch (error) {
-        res.json({ fatal: error.message });
+        console.error('❌ Error creando curso:', error);
+        res.status(500).json({ fatal: error.message });
     }
 });
 

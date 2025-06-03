@@ -20,6 +20,13 @@ const createAssistantForCourse = async (vectorStoreId, courseName = 'Curso sin n
     return assistant.id;
 };
 
+const createVectorStore = async () => {
+    const vectorStore = await openai.beta.vectorStores.create({
+      name: 'Documentos del curso'
+    });
+    return vectorStore.id;
+  };
+
 /**
  * Inicia un nuevo thread de conversación
  */
@@ -57,5 +64,6 @@ const sendMessageToAssistant = async ({ assistantId, threadId, message }) => {
 module.exports = {
     createAssistantForCourse,
     createThread,
-    sendMessageToAssistant
+    sendMessageToAssistant,
+    createVectorStore
 };
