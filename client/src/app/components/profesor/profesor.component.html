@@ -2,6 +2,8 @@
 
 <app-course-selector (courseSelected)="onCourseSelected($event)"></app-course-selector>
 
+<app-create-course (courseCreated)="loadCourses()"></app-create-course>
+
 <div *ngIf="selectedCourse">
   <h3>Curso: {{ selectedCourse.name }}</h3>
 
