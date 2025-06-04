@@ -37,5 +37,20 @@ export class DocumentListComponent implements OnChanges {
   async refresh() {
     await this.loadDocuments();
   }
+
+  delete(id: number) {
+  if (confirm('¿Estás seguro de que quieres borrar este documento?')) {
+    this.documentService.deleteDocument(id).subscribe({
+      next: () => {
+        this.loadDocuments(); 
+      },
+      error: (err) => {
+        alert('Error al borrar el documento');
+        console.error(err);
+      }
+    });
+  }
+}
+
 }
 

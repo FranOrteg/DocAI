@@ -3,6 +3,7 @@
 <ul *ngIf="!loading && documents.length > 0">
   <li *ngFor="let doc of documents">
     <a [href]="doc.url" target="_blank">{{ doc.filename }}</a> ({{ doc.status }})
+    <button (click)="delete(doc.id)">🗑️ Eliminar</button>
   </li>
 </ul>
 

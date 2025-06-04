@@ -3,7 +3,13 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { checkToken } = require('../../helpers/middlewares');
-const { saveDocument, getDocumentsByCourse, updateDocumentStatus } = require('../../models/document.model');
+const { 
+  saveDocument, 
+  getDocumentsByCourse, 
+  updateDocumentStatus,
+  getDocumentById,
+  deleteDocumentById
+ } = require('../../models/document.model');
 const { getCourseById } = require('../../models/courses.model');
 const openai = require('../../config/openai');
 
@@ -96,5 +102,43 @@ router.post('/:courseId', checkToken, upload.single('document'), async (req, res
     res.status(500).json({ fatal: err.message }); 
   }
 });
+
+// DELETE /api/documents/:id
+router.delete('/:id', checkToken, async (req, res) => {
+  const documentId = req.params.id;
+
+  try {
+    // 1. Obtener info del documento
+    const [docRows] = await getDocumentById(documentId);
+    if (docRows.length === 0) {
+      return res.status(404).json({ fatal: 'Documento no encontrado' });
+    }
+    const doc = docRows[0];
+
+    // 2. Eliminar de OpenAI si es tipo 'file'
+    if (doc.type === 'file') {
+      try {
+        await openai.files.del(doc.filename); // si el filename guarda el ID de OpenAI
+      } catch (err) {
+        console.warn(`⚠️ No se pudo eliminar de OpenAI: ${err.message}`);
+      }
+    }
+
+    // 3. Eliminar archivo físico si existe
+    const filePath = path.join(__dirname, '../../uploads', doc.filename);
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+
+    // 4. Eliminar de la BD
+    await deleteDocumentById(documentId);
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('❌ Error al borrar documento:', error);
+    res.status(500).json({ fatal: 'Error interno al borrar documento' });
+  }
+});
+
 
 module.exports = router;

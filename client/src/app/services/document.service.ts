@@ -20,4 +20,9 @@ export class DocumentService {
   getDocumentsByCourse(courseId: number) {
     return firstValueFrom(this.http.get<any[]>(`${this.baseUrl}/courses/${courseId}`));
   }
+
+  deleteDocument(documentId: number) {
+  return this.http.delete(`${this.baseUrl}/${documentId}`);
+}
+
 }
