@@ -1,9 +1,15 @@
 <h2>Panel del Profesor</h2>
 
-<app-course-selector (courseSelected)="onCourseSelected($event)"></app-course-selector>
+<!-- ✅ Mostrar cursos del profesor con opción de borrar -->
+<app-course-list [reloadTrigger]="reloadCoursesFlag"></app-course-list>
 
+<!-- Crear curso -->
 <app-create-course (courseCreated)="loadCourses()"></app-create-course>
 
+<!-- Seleccionar curso -->
+<app-course-selector (courseSelected)="onCourseSelected($event)"></app-course-selector>
+
+<!-- Contenido del curso seleccionado -->
 <div *ngIf="selectedCourse">
   <h3>Curso: {{ selectedCourse.name }}</h3>
 

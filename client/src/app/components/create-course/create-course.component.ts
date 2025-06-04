@@ -30,8 +30,8 @@ export class CreateCourseComponent {
     this.loading = true;
     this.error = '';
     try {
-      await this.courseService.createCourse({ name: this.name, description: this.description });
-      this.courseCreated.emit();
+      const createdCourse = await this.courseService.createCourse({ name: this.name, description: this.description });
+      this.courseCreated.emit(createdCourse);
       this.name = '';
       this.description = '';
     } catch (err) {

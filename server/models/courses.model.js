@@ -30,11 +30,16 @@ const getAssistantId = (course_id) => {
 // Establecer vector_store_id
 const setVectorStoreId = (course_id, vector_store_id) => {
     return db.query(
-      'UPDATE courses SET vector_store_id = ? WHERE id = ?',
-      [vector_store_id, course_id]
+        'UPDATE courses SET vector_store_id = ? WHERE id = ?',
+        [vector_store_id, course_id]
     );
-  };
-  
+};
+
+// Eliminar curso por ID
+const deleteCourseById = (id) => {
+    return db.query('DELETE FROM courses WHERE id = ?', [id]);
+};
+
 
 module.exports = {
     createCourse,
@@ -43,4 +48,5 @@ module.exports = {
     getAssistantId,
     getCourseById,
     setVectorStoreId,
+    deleteCourseById
 };

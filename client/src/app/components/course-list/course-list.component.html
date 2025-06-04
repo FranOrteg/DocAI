@@ -1,0 +1,14 @@
+<h2>📚 Cursos</h2>
+
+<div *ngIf="loading">Cargando cursos...</div>
+
+<ul *ngIf="!loading && courses.length > 0">
+  <li *ngFor="let course of courses">
+    <strong>{{ course.name }}</strong> - {{ course.description }}
+    <button (click)="delete(course.id)">🗑️ Borrar</button>
+  </li>
+</ul>
+
+<div *ngIf="!loading && courses.length === 0">
+  No tienes cursos creados.
+</div>

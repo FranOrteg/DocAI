@@ -1,17 +1,17 @@
 // Guardar documento
 const saveDocument = ({ user_id, course_id, filename, filepath, type, status = 'pending', openai_file_id }) => {
-    return db.query(
-        'INSERT INTO documents (user_id, course_id, filename, filepath, type, status, openai_file_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [user_id, course_id, filename, filepath, type, status, openai_file_id]
-    );
+  return db.query(
+    'INSERT INTO documents (user_id, course_id, filename, filepath, type, status, openai_file_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [user_id, course_id, filename, filepath, type, status, openai_file_id]
+  );
 };
 
 // Obtener Documento por Curso 
 const getDocumentsByCourse = (course_id) => {
-    return db.query(
-        'SELECT * FROM documents WHERE course_id = ?',
-        [course_id]
-    );
+  return db.query(
+    'SELECT * FROM documents WHERE course_id = ?',
+    [course_id]
+  );
 };
 
 // Actualizar el estado del documento
@@ -29,11 +29,18 @@ const deleteDocumentById = (id) => {
   return db.query('DELETE FROM documents WHERE id = ?', [id]);
 };
 
+// Eliminar todos los documentos de un curso
+const deleteAllDocumentsByCourse = (course_id) => {
+  return db.query('DELETE FROM documents WHERE course_id = ?', [course_id]);
+};
+
+
 
 module.exports = {
-    saveDocument,
-    getDocumentsByCourse,
-    updateDocumentStatus,
-    deleteDocumentById,
-    getDocumentById
+  saveDocument,
+  getDocumentsByCourse,
+  updateDocumentStatus,
+  deleteDocumentById,
+  getDocumentById,
+  deleteAllDocumentsByCourse
 };
