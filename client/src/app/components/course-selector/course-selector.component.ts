@@ -10,6 +10,7 @@ import { CourseService } from '../../services/course.service';
   templateUrl: './course-selector.component.html',
   styleUrls: ['./course-selector.component.css']
 })
+
 export class CourseSelectorComponent {
   @Output() courseSelected = new EventEmitter<any>();
 

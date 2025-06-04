@@ -27,7 +27,7 @@ const uploadChunksToVectorStore = async (chunks, courseName = 'default-course') 
     });
 
     // Paso 3: Adjuntar a vector store
-    const vectorStore = await openai.beta.vectorStores.create({
+    const vectorStore = await openai.vectorStores.create({
         name: `VectorStore ${courseName}`,
         file_ids: [file.id]
     });
