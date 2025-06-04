@@ -59,19 +59,7 @@ router.post('/:courseId', checkToken, upload.single('document'), async (req, res
       return res.status(400).json({ fatal: 'No se ha subido ningún archivo' });
     }
 
-    // 1. Guardar en base de datos
-    const docData = {
-      user_id: userId,
-      course_id: courseId,
-      filename: file.originalname,
-      filepath: file.filename,
-      type: file.mimetype
-    };
-
-    const [result] = await saveDocument(docData);
-    const docId = result.insertId;
-
-    // 2. Leer archivo y obtener curso
+    // Leer archivo y obtener curso
     const fullPath = path.join(__dirname, '../../uploads', file.filename);
     const fileStream = fs.createReadStream(fullPath);
     const [courseRows] = await getCourseById(courseId);
@@ -81,17 +69,31 @@ router.post('/:courseId', checkToken, upload.single('document'), async (req, res
       return res.status(400).json({ fatal: 'El curso no tiene vector_store asociado' });
     }
 
-    // 3. Subir a OpenAI
+    // Subir a OpenAI
     console.log('📂 Subiendo archivo a OpenAI...');
     const uploadedFile = await openai.files.create({ file: fileStream, purpose: 'assistants' });
     console.log('📄 Archivo subido con ID:', uploadedFile.id);
 
-    // 4. Vincular al vector store
+    // Vincular al vector store
     console.log('📎 Vinculando archivo al vector store...');
     await openai.beta.vectorStores.files.create(course.vector_store_id, {
       file_id: uploadedFile.id
     });
     console.log('✅ Archivo vinculado');
+
+    // Guardar en base de datos
+    const docData = {
+      user_id: userId,
+      course_id: courseId,
+      filename: file.originalname,
+      filepath: file.filename,
+      type: file.mimetype,
+      status: 'uploaded',
+      openai_file_id: uploadedFile.id // este es el ID correcto
+    };
+
+    const [result] = await saveDocument(docData);
+    const docId = result.insertId;
 
     // 5. Actualizar estado
     await updateDocumentStatus(docId, 'uploaded');

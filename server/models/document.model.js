@@ -2,7 +2,7 @@
 const saveDocument = ({ user_id, course_id, filename, filepath, type, status = 'pending', openai_file_id }) => {
     return db.query(
         'INSERT INTO documents (user_id, course_id, filename, filepath, type, status, openai_file_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        [user_id, course_id, filename, filepath, type, status], openai_file_id
+        [user_id, course_id, filename, filepath, type, status, openai_file_id]
     );
 };
 
