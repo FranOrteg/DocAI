@@ -93,7 +93,7 @@ router.post('/:courseId', checkToken, upload.single('document'), async (req, res
     res.json({ success: 'Archivo subido y vinculado al vector store', docId });
   } catch (err) {
     console.error('❌ Error al subir documento:', err);
-    res.status(500).json({ fatal: 'Error interno al subir documento' });
+    res.status(500).json({ fatal: err.message }); 
   }
 });
 

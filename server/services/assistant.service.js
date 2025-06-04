@@ -5,7 +5,7 @@ const openai = require('../config/openai');
  */
 const createAssistantForCourse = async (vectorStoreId, courseName = 'Curso sin nombre') => {
     const assistant = await openai.beta.assistants.create({
-        name: `Asistente para ${courseName}`,
+        name: `Asistente ${courseName}`,
         instructions: `Eres un asistente que ayuda a preparar clases. Usa los documentos del curso ${courseName} para responder.`,
         model: 'gpt-4-turbo-preview',
         tools: [{ type: 'file_search' }],
