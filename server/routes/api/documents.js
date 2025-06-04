@@ -82,7 +82,7 @@ router.post('/:courseId', checkToken, upload.single('document'), async (req, res
 
     // 4. Vincular al vector store
     console.log('📎 Vinculando archivo al vector store...');
-    await openai.vectorStores.files.create(course.vector_store_id, {
+    await openai.beta.vectorStores.files.create(course.vector_store_id, {
       file_id: uploadedFile.id
     });
     console.log('✅ Archivo vinculado');

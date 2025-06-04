@@ -4,7 +4,7 @@ const openai = require('../config/openai');
  * Crea un nuevo Assistant y lo asocia al vector store
  */
 const createAssistantForCourse = async (vectorStoreId, courseName = 'Curso sin nombre') => {
-    const assistant = await openai.assistants.create({
+    const assistant = await openai.beta.assistants.create({
         name: `Asistente ${courseName}`,
         // instructions: `Eres un asistente que ayuda a preparar clases. Usa los documentos del curso "${courseName}" para responder.`,        
 
@@ -26,10 +26,9 @@ const createAssistantForCourse = async (vectorStoreId, courseName = 'Curso sin n
  * Crea un nuevo vector store
  */
 const createVectorStore = async () => {
-    const vectorStore = await openai.vectorStores.create({
+    const vectorStore = await openai.beta.vectorStores.create({
         name: 'Documentos del curso'
     });
-
     return vectorStore.id;
 };
 
