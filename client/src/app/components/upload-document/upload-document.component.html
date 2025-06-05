@@ -1,7 +1,13 @@
 <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
   <div class="mb-3">
-    <label>Seleccionar documento</label>
-    <input type="file" (change)="onFileChange($event)" class="form-control" />
+    <label for="file">Seleccionar documento</label>
+    <input 
+      #fileInput
+      id="file"
+      type="file"
+      (change)="onFileChange($event)"
+      class="form-control"
+    />
   </div>
   <button class="btn btn-primary" type="submit" [disabled]="uploadForm.invalid">Subir</button>
 </form>
