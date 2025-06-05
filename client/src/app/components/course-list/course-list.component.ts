@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input,Output, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseService } from '../../services/course.service';
 
@@ -10,7 +10,9 @@ import { CourseService } from '../../services/course.service';
   styleUrls: ['./course-list.component.css']
 })
 export class CourseListComponent implements OnChanges {
+ 
   @Input() reloadTrigger: any; 
+  @Output() courseSelected = new EventEmitter<any>();
 
   courses: any[] = [];
   loading = false;
@@ -44,4 +46,9 @@ export class CourseListComponent implements OnChanges {
       }
     }
   }
+
+  selectCourse(course: any) {
+    this.courseSelected.emit(course);
+  }
+  
 }

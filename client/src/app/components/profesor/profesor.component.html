@@ -1,13 +1,16 @@
-<h2>Panel XXXXX</h2>
+<h2>Panel del Profesor</h2>
 
-<!-- Mostrar cursos del profesor con opción de borrar -->
-<app-course-list [reloadTrigger]="reloadCoursesFlag"></app-course-list>
+<!-- Listar y seleccionar cursos -->
+<app-course-list 
+  [reloadTrigger]="reloadCoursesFlag"
+  (courseSelected)="onCourseSelected($event)"
+></app-course-list>
 
 <!-- Crear curso -->
-<app-create-course (courseCreated)="loadCourses()"></app-create-course>
-
-<!-- Seleccionar curso -->
-<app-course-selector (courseSelected)="onCourseSelected($event)"></app-course-selector>
+<app-create-course 
+  (courseCreated)="loadCourses()" 
+  (courseSelected)="onCourseSelected($event)"
+></app-create-course>
 
 <!-- Contenido del curso seleccionado -->
 <div *ngIf="selectedCourse">
