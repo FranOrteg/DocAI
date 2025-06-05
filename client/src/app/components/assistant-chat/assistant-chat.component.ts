@@ -37,4 +37,12 @@ export class AssistantChatComponent {
 
     this.loading = false;
   }
+
+  // ✅ Método para cargar historial externo
+  loadHistory(history: { role: string; content: string }[]) {
+    this.messages = history.map(msg => ({
+      from: msg.role === 'user' ? 'user' : 'assistant',
+      text: msg.content
+    }));
+  }
 }

@@ -85,5 +85,24 @@ router.get('/:courseId/threads', checkToken, async (req, res) => {
   }
 });
 
+// GET /api/chat/thread/:threadId/history
+router.get('/thread/:threadId/history', checkToken, async (req, res) => {
+  try {
+    const thread_id = req.params.threadId;
+
+    const [messages] = await getMessagesByThread(thread_id);
+
+    if (!messages.length) {
+      return res.status(404).json({ fatal: 'No hay mensajes para este thread' });
+    }
+
+    res.json(messages);
+  } catch (error) {
+    console.error('❌ Error en GET /chat/thread/:threadId/history:', error);
+    res.status(500).json({ fatal: error.message });
+  }
+});
+
+
 
 module.exports = router;

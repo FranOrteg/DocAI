@@ -26,7 +26,15 @@ export class AssistantService {
   }
 
   getThreadsByCourse(courseId: number) {
-    return firstValueFrom(this.http.get<any[]>(`${this.baseUrl}/${courseId}/threads`));
+    return firstValueFrom(
+      this.http.get<any[]>(`${this.baseUrl}/${courseId}/threads`)
+    );
+  }
+  
+  getThreadHistory(openaiThreadId: string) {
+    return firstValueFrom(
+      this.http.get<{ role: string, content: string }[]>(`${this.baseUrl}/thread/${openaiThreadId}/history`)
+    );
   }
   
 }

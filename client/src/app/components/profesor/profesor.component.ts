@@ -6,6 +6,7 @@ import { AssistantChatComponent } from '../assistant-chat/assistant-chat.compone
 import { CreateCourseComponent } from '../create-course/create-course.component';
 import { CourseListComponent } from '../course-list/course-list.component';
 import { ConversationListComponent } from "../conversation-list/conversation-list.component";
+import { AssistantService } from '../../services/assistant.service';
 
 @Component({
   selector: 'app-profesor',
@@ -23,10 +24,14 @@ import { ConversationListComponent } from "../conversation-list/conversation-lis
   styleUrls: ['./profesor.component.css']
 })
 export class ProfesorComponent implements AfterViewInit {
+
+  constructor(private assistantService: AssistantService) {}
+
   selectedCourse: any = null;
   reloadCoursesFlag = Date.now(); // Para refrescar CourseList
 
   @ViewChild(DocumentListComponent) docListComponent!: DocumentListComponent;
+  @ViewChild(AssistantChatComponent) assistantChatComponent!: AssistantChatComponent;
 
   ngAfterViewInit(): void {}
 
@@ -52,7 +57,15 @@ export class ProfesorComponent implements AfterViewInit {
 
   onThreadSelected(thread: any) {
     console.log('📂 Thread seleccionado:', thread);
-    // Aquí puedes cargar los mensajes por thread.id y mostrarlos
+  
+    this.assistantService.getThreadHistory(thread.assistant_thread_id)
+      .then(messages => {
+        console.log('📜 Historial del thread:', messages);
+        this.assistantChatComponent?.loadHistory(messages);
+      })
+      .catch(err => {
+        console.error('❌ Error al cargar historial del thread:', err);
+      });
   }
   
 }
