@@ -1,0 +1,18 @@
+<h4>Conversaciones anteriores</h4>
+
+<div *ngIf="loading">Cargando conversaciones...</div>
+
+<ul *ngIf="!loading && conversations.length > 0" class="list-group mt-2">
+  <li 
+    *ngFor="let thread of conversations"
+    (click)="selectThread(thread)"
+    class="list-group-item list-group-item-action"
+    style="cursor: pointer;"
+  >
+    🗂️ {{ thread.topic || ('Conversación del ' + (thread.created_at | date: 'short')) }}
+  </li>
+</ul>
+
+<div *ngIf="!loading && conversations.length === 0">
+  No hay conversaciones disponibles.
+</div>

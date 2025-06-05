@@ -24,4 +24,9 @@ export class AssistantService {
       this.http.get<{ role: string, content: string }[]>(`${this.baseUrl}/${courseId}/history`)
     );
   }
+
+  getThreadsByCourse(courseId: number) {
+    return firstValueFrom(this.http.get<any[]>(`${this.baseUrl}/${courseId}/threads`));
+  }
+  
 }

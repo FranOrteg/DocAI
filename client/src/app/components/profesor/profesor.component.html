@@ -25,4 +25,10 @@
   <app-document-list [courseId]="selectedCourse.id"></app-document-list>
 
   <app-assistant-chat [courseId]="selectedCourse.id"></app-assistant-chat>
+
+  <app-conversation-list
+  [courseId]="selectedCourse?.id"
+  (threadSelected)="onThreadSelected($event)"
+></app-conversation-list>
+
 </div>

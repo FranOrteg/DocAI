@@ -5,6 +5,7 @@ import { DocumentListComponent } from '../document-list/document-list.component'
 import { AssistantChatComponent } from '../assistant-chat/assistant-chat.component';
 import { CreateCourseComponent } from '../create-course/create-course.component';
 import { CourseListComponent } from '../course-list/course-list.component';
+import { ConversationListComponent } from "../conversation-list/conversation-list.component";
 
 @Component({
   selector: 'app-profesor',
@@ -15,8 +16,9 @@ import { CourseListComponent } from '../course-list/course-list.component';
     DocumentListComponent,
     AssistantChatComponent,
     CreateCourseComponent,
-    CourseListComponent
-  ],
+    CourseListComponent,
+    ConversationListComponent
+],
   templateUrl: './profesor.component.html',
   styleUrls: ['./profesor.component.css']
 })
@@ -45,6 +47,12 @@ export class ProfesorComponent implements AfterViewInit {
     console.log('✅ Curso creado:', course);
     this.selectedCourse = course;
     this.reloadCoursesFlag = Date.now();
+  }
+  
+
+  onThreadSelected(thread: any) {
+    console.log('📂 Thread seleccionado:', thread);
+    // Aquí puedes cargar los mensajes por thread.id y mostrarlos
   }
   
 }

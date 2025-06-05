@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { checkToken } = require('../../helpers/middlewares');
 const { getCourseById } = require('../../models/courses.model');
-const { getThreadByUserAndCourse, createThreadEntry } = require('../../models/thread.model');
+const { getThreadByUserAndCourse, createThreadEntry, getAllThreadsByUserAndCourse } = require('../../models/thread.model');
 const { saveMessage, getMessagesByThread } = require('../../models/message.model');
 const { sendMessageToAssistant } = require('../../services/assistant.service');
 
@@ -70,5 +70,20 @@ router.get('/:courseId/history', checkToken, async (req, res) => {
     res.status(500).json({ fatal: error.message });
   }
 });
+
+// GET /api/chat/:courseId/threads
+router.get('/:courseId/threads', checkToken, async (req, res) => {
+  try {
+    const course_id = req.params.courseId;
+    const user_id = req.user.id;
+
+    const [threads] = await getAllThreadsByUserAndCourse(user_id, course_id);
+    res.json(threads);
+  } catch (error) {
+    console.error('❌ Error en GET /chat/:courseId/threads:', error);
+    res.status(500).json({ fatal: error.message });
+  }
+});
+
 
 module.exports = router;
