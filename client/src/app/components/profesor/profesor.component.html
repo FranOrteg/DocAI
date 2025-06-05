@@ -3,6 +3,7 @@
 <!-- Listar y seleccionar cursos -->
 <app-course-list 
   [reloadTrigger]="reloadCoursesFlag"
+  [selectedCourseId]="selectedCourse?.id"
   (courseSelected)="onCourseSelected($event)"
 ></app-course-list>
 

@@ -46,4 +46,5 @@ export class ProfesorComponent implements AfterViewInit {
     this.selectedCourse = course;
     this.reloadCoursesFlag = Date.now();
   }
+  
 }

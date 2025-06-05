@@ -1,4 +1,4 @@
-import { Component, Input,Output, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseService } from '../../services/course.service';
 
@@ -10,14 +10,15 @@ import { CourseService } from '../../services/course.service';
   styleUrls: ['./course-list.component.css']
 })
 export class CourseListComponent implements OnChanges {
- 
-  @Input() reloadTrigger: any; 
+
+  @Input() reloadTrigger: any;
+  @Input() selectedCourseId: number | null = null;
   @Output() courseSelected = new EventEmitter<any>();
 
   courses: any[] = [];
   loading = false;
 
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['reloadTrigger']) {
@@ -40,6 +41,12 @@ export class CourseListComponent implements OnChanges {
       try {
         await this.courseService.deleteCourse(courseId);
         await this.loadCourses();
+
+        // 👇 Si el curso borrado era el seleccionado, emitir null
+        if (this.selectedCourseId === courseId) {
+          this.courseSelected.emit(null);
+        }
+
       } catch (error) {
         alert('Error al borrar el curso');
         console.error(error);
@@ -50,5 +57,5 @@ export class CourseListComponent implements OnChanges {
   selectCourse(course: any) {
     this.courseSelected.emit(course);
   }
-  
+
 }
