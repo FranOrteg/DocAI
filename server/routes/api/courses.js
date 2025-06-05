@@ -27,7 +27,7 @@ router.post('/', checkToken, async (req, res) => {
         const user_id = req.user.id;
 
         // 🧠 1. Crear vector store y assistant
-        const vectorStoreId = await createVectorStore();
+        const vectorStoreId = await createVectorStore(name);
         const assistantId = await createAssistantForCourse(vectorStoreId, name);
 
         // 🧠 2. Crear curso con IDs asociados

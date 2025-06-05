@@ -3,13 +3,13 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { checkToken } = require('../../helpers/middlewares');
-const { 
-  saveDocument, 
-  getDocumentsByCourse, 
+const {
+  saveDocument,
+  getDocumentsByCourse,
   updateDocumentStatus,
   getDocumentById,
   deleteDocumentById
- } = require('../../models/document.model');
+} = require('../../models/document.model');
 const { getCourseById } = require('../../models/courses.model');
 const openai = require('../../config/openai');
 
@@ -101,7 +101,7 @@ router.post('/:courseId', checkToken, upload.single('document'), async (req, res
     res.json({ success: 'Archivo subido y vinculado al vector store', docId });
   } catch (err) {
     console.error('❌ Error al subir documento:', err);
-    res.status(500).json({ fatal: err.message }); 
+    res.status(500).json({ fatal: err.message });
   }
 });
 
@@ -117,22 +117,37 @@ router.delete('/:id', checkToken, async (req, res) => {
     }
     const doc = docRows[0];
 
-    // 2. Eliminar de OpenAI si es tipo 'file'
-    if (doc.type === 'file') {
+    // 2. Obtener vector_store_id del curso
+    let vectorStoreId = null;
+    if (doc.course_id) {
+      const [courseRows] = await getCourseById(doc.course_id);
+      vectorStoreId = courseRows?.[0]?.vector_store_id;
+    }
+
+    // 4. Eliminar de OpenAI si existe openai_file_id
+    if (doc.openai_file_id?.startsWith('file-')) {
       try {
-        await openai.files.del(doc.filename); // si el filename guarda el ID de OpenAI
+        // Primero desvincular del vector store (si existe)
+        if (vectorStoreId?.startsWith('vs_')) {
+          await openai.beta.vectorStores.files.del(vectorStoreId, doc.openai_file_id);
+          console.log(`🔗 Desvinculado del vector store: ${vectorStoreId}`);
+        }
+
+        // Luego borrar el archivo
+        await openai.files.del(doc.openai_file_id);
+        console.log(`🗑 Archivo de OpenAI eliminado: ${doc.openai_file_id}`);
       } catch (err) {
-        console.warn(`⚠️ No se pudo eliminar de OpenAI: ${err.message}`);
+        console.warn(`⚠️ No se pudo eliminar archivo de OpenAI: ${err.message}`);
       }
     }
 
-    // 3. Eliminar archivo físico si existe
+    // 5. Eliminar archivo físico si existe
     const filePath = path.join(__dirname, '../../uploads', doc.filename);
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
 
-    // 4. Eliminar de la BD
+    // 6. Eliminar de la BD
     await deleteDocumentById(documentId);
 
     res.json({ success: true });

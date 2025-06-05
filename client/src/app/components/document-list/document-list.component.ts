@@ -16,7 +16,7 @@ export class DocumentListComponent implements OnChanges {
   documents: any[] = [];
   loading = false;
 
-  constructor(private documentService: DocumentService) {}
+  constructor(private documentService: DocumentService) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['courseId'] && this.courseId) {
@@ -38,19 +38,17 @@ export class DocumentListComponent implements OnChanges {
     await this.loadDocuments();
   }
 
-  delete(id: number) {
-  if (confirm('¿Estás seguro de que quieres borrar este documento?')) {
-    this.documentService.deleteDocument(id).subscribe({
-      next: () => {
-        this.loadDocuments(); 
-      },
-      error: (err) => {
+  async delete(id: number) {
+    if (confirm('¿Estás seguro de que quieres borrar este documento?')) {
+      try {
+        await this.documentService.deleteDocument(id);
+        await this.loadDocuments();
+      } catch (error) {
         alert('Error al borrar el documento');
-        console.error(err);
+        console.error(error);
       }
-    });
+    }
   }
-}
 
 }
 

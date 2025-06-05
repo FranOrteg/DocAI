@@ -25,9 +25,9 @@ const createAssistantForCourse = async (vectorStoreId, courseName = 'Curso sin n
 /**
  * Crea un nuevo vector store
  */
-const createVectorStore = async () => {
+const createVectorStore = async (courseName = 'Curso sin nombre') => {
     const vectorStore = await openai.beta.vectorStores.create({
-        name: 'Documentos del curso'
+        name: `Documentos de ${courseName}`
     });
     return vectorStore.id;
 };

@@ -8,7 +8,7 @@ import { firstValueFrom } from 'rxjs';
 export class DocumentService {
   private baseUrl = 'http://localhost:3000/api/documents';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   uploadDocument(courseId: number, document: File) {
     const formData = new FormData();
@@ -22,7 +22,9 @@ export class DocumentService {
   }
 
   deleteDocument(documentId: number) {
-  return this.http.delete(`${this.baseUrl}/${documentId}`);
-}
+    return firstValueFrom(
+      this.http.delete(`${this.baseUrl}/${documentId}`
+      ));
+  }
 
 }
