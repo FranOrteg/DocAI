@@ -33,6 +33,7 @@ export class ProfesorComponent implements AfterViewInit {
 
   @ViewChild(DocumentListComponent) docListComponent!: DocumentListComponent;
   @ViewChild(AssistantChatComponent) assistantChatComponent!: AssistantChatComponent;
+  @ViewChild(ConversationListComponent) conversationListComponent!: ConversationListComponent;
 
   ngAfterViewInit(): void { }
 
@@ -77,5 +78,10 @@ export class ProfesorComponent implements AfterViewInit {
     this.assistantChatComponent.forceNewThread = true; // 🔥 Clave
   }
 
+  onThreadCreated(newThreadId: string) {
+    console.log('🧵 Nuevo thread creado:', newThreadId);
+    this.selectedThreadId = newThreadId;
+    this.conversationListComponent?.loadConversations();
+  }
 
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AssistantService } from '../../services/assistant.service';
@@ -14,6 +14,7 @@ export class AssistantChatComponent {
   @Input() courseId!: number;
   @Input() threadId: string | null = null;
   @Input() forceNewThread: boolean = false;
+  @Output() threadCreated = new EventEmitter<string>(); // ⬅️ nuevo output
 
   messages: { from: 'user' | 'assistant'; text: string }[] = [];
   userInput = '';
@@ -29,6 +30,11 @@ export class AssistantChatComponent {
     this.userInput = '';
     this.loading = true;
 
+    // 👇 Detectar "inicio desde cero"
+    if (!this.threadId && this.messages.length === 1) {
+      this.forceNewThread = true;
+    }
+
     try {
       const res = await this.assistantService.sendMessage(
         this.courseId,
@@ -39,6 +45,7 @@ export class AssistantChatComponent {
 
       if (!this.threadId && res.threadId) {
         this.threadId = res.threadId;
+        this.threadCreated.emit(this.threadId); // ⬅️ emitir evento al padre
       }
       this.forceNewThread = false; // Resetear tras enviar
 
@@ -49,6 +56,7 @@ export class AssistantChatComponent {
     }
 
     this.loading = false;
+    this.forceNewThread = false;
   }
 
   // ✅ Método para cargar historial externo

@@ -19,7 +19,8 @@
     🆕 Nueva conversación
   </button>
 
-  <app-assistant-chat [courseId]="selectedCourse.id" [threadId]="selectedThreadId"></app-assistant-chat>
+  <app-assistant-chat [courseId]="selectedCourse.id" [threadId]="selectedThreadId"
+    (threadCreated)="onThreadCreated($event)"></app-assistant-chat>
 
   <app-conversation-list [courseId]="selectedCourse?.id"
     (threadSelected)="onThreadSelected($event)"></app-conversation-list>
