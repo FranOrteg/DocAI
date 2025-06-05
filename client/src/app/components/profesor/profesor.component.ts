@@ -19,21 +19,22 @@ import { AssistantService } from '../../services/assistant.service';
     CreateCourseComponent,
     CourseListComponent,
     ConversationListComponent
-],
+  ],
   templateUrl: './profesor.component.html',
   styleUrls: ['./profesor.component.css']
 })
 export class ProfesorComponent implements AfterViewInit {
 
-  constructor(private assistantService: AssistantService) {}
+  constructor(private assistantService: AssistantService) { }
 
   selectedCourse: any = null;
   reloadCoursesFlag = Date.now(); // Para refrescar CourseList
+  selectedThreadId: string | null = null;
 
   @ViewChild(DocumentListComponent) docListComponent!: DocumentListComponent;
   @ViewChild(AssistantChatComponent) assistantChatComponent!: AssistantChatComponent;
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   onDocumentUploaded() {
     this.docListComponent?.refresh();
@@ -53,11 +54,12 @@ export class ProfesorComponent implements AfterViewInit {
     this.selectedCourse = course;
     this.reloadCoursesFlag = Date.now();
   }
-  
+
 
   onThreadSelected(thread: any) {
     console.log('📂 Thread seleccionado:', thread);
-  
+    this.selectedThreadId = thread.assistant_thread_id;
+
     this.assistantService.getThreadHistory(thread.assistant_thread_id)
       .then(messages => {
         console.log('📜 Historial del thread:', messages);
@@ -67,5 +69,13 @@ export class ProfesorComponent implements AfterViewInit {
         console.error('❌ Error al cargar historial del thread:', err);
       });
   }
-  
+
+  startNewConversation() {
+    console.log('🆕 Iniciando nueva conversación');
+    this.selectedThreadId = null;
+    this.assistantChatComponent?.loadHistory([]);
+    this.assistantChatComponent.forceNewThread = true; // 🔥 Clave
+  }
+
+
 }

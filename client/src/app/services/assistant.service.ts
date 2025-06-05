@@ -9,15 +9,18 @@ export class AssistantService {
 
   private baseUrl = 'http://localhost:3000/api/chat';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  sendMessage(courseId: number, message: string) {
+  sendMessage(courseId: number, message: string, threadId: string | null = null, forceNewThread: boolean = false) {
     return firstValueFrom(
-      this.http.post<{ respuesta: string }>(`${this.baseUrl}/${courseId}`, {
-        message
+      this.http.post<{ respuesta: string; threadId: string }>(`${this.baseUrl}/${courseId}`, {
+        message,
+        threadId,
+        forceNewThread
       })
     );
   }
+
 
   getMessageHistory(courseId: number) {
     return firstValueFrom(
@@ -30,11 +33,11 @@ export class AssistantService {
       this.http.get<any[]>(`${this.baseUrl}/${courseId}/threads`)
     );
   }
-  
+
   getThreadHistory(openaiThreadId: string) {
     return firstValueFrom(
       this.http.get<{ role: string, content: string }[]>(`${this.baseUrl}/thread/${openaiThreadId}/history`)
     );
   }
-  
+
 }

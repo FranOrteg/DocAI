@@ -12,12 +12,14 @@ import { AssistantService } from '../../services/assistant.service';
 })
 export class AssistantChatComponent {
   @Input() courseId!: number;
+  @Input() threadId: string | null = null;
+  @Input() forceNewThread: boolean = false;
 
   messages: { from: 'user' | 'assistant'; text: string }[] = [];
   userInput = '';
   loading = false;
 
-  constructor(private assistantService: AssistantService) {}
+  constructor(private assistantService: AssistantService) { }
 
   async sendMessage() {
     if (!this.userInput.trim()) return;
@@ -28,7 +30,18 @@ export class AssistantChatComponent {
     this.loading = true;
 
     try {
-      const res = await this.assistantService.sendMessage(this.courseId, userMessage);
+      const res = await this.assistantService.sendMessage(
+        this.courseId,
+        userMessage,
+        this.threadId,
+        this.forceNewThread
+      );
+
+      if (!this.threadId && res.threadId) {
+        this.threadId = res.threadId;
+      }
+      this.forceNewThread = false; // Resetear tras enviar
+
       this.messages.push({ from: 'assistant', text: res.respuesta });
     } catch (error) {
       this.messages.push({ from: 'assistant', text: '⚠️ Error al obtener respuesta del asistente.' });

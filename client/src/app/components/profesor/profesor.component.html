@@ -1,34 +1,27 @@
 <h2>Panel del Profesor</h2>
 
 <!-- Listar y seleccionar cursos -->
-<app-course-list 
-  [reloadTrigger]="reloadCoursesFlag"
-  [selectedCourseId]="selectedCourse?.id"
-  (courseSelected)="onCourseSelected($event)"
-></app-course-list>
+<app-course-list [reloadTrigger]="reloadCoursesFlag" [selectedCourseId]="selectedCourse?.id"
+  (courseSelected)="onCourseSelected($event)"></app-course-list>
 
 <!-- Crear curso -->
-<app-create-course 
-  (courseCreated)="loadCourses()" 
-  (courseSelected)="onCourseSelected($event)"
-></app-create-course>
+<app-create-course (courseCreated)="loadCourses()" (courseSelected)="onCourseSelected($event)"></app-create-course>
 
 <!-- Contenido del curso seleccionado -->
 <div *ngIf="selectedCourse">
   <h3>Curso: {{ selectedCourse.name }}</h3>
 
-  <app-upload-document
-    [courseId]="selectedCourse.id"
-    (uploadSuccess)="onDocumentUploaded()"
-  ></app-upload-document>
+  <app-upload-document [courseId]="selectedCourse.id" (uploadSuccess)="onDocumentUploaded()"></app-upload-document>
 
   <app-document-list [courseId]="selectedCourse.id"></app-document-list>
 
-  <app-assistant-chat [courseId]="selectedCourse.id"></app-assistant-chat>
+  <button (click)="startNewConversation()" class="btn btn-primary mb-2">
+    🆕 Nueva conversación
+  </button>
 
-  <app-conversation-list
-  [courseId]="selectedCourse?.id"
-  (threadSelected)="onThreadSelected($event)"
-></app-conversation-list>
+  <app-assistant-chat [courseId]="selectedCourse.id" [threadId]="selectedThreadId"></app-assistant-chat>
+
+  <app-conversation-list [courseId]="selectedCourse?.id"
+    (threadSelected)="onThreadSelected($event)"></app-conversation-list>
 
 </div>

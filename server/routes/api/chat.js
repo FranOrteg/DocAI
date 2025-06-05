@@ -8,7 +8,7 @@ const { sendMessageToAssistant } = require('../../services/assistant.service');
 // POST /api/chat/:courseId
 router.post('/:courseId', checkToken, async (req, res) => {
   try {
-    const { message } = req.body;
+    const { message, threadId: providedThreadId, forceNewThread } = req.body;
     const course_id = req.params.courseId;
     const user_id = req.user.id;
 
@@ -25,30 +25,43 @@ router.post('/:courseId', checkToken, async (req, res) => {
 
     const assistantId = course.assistant_id;
 
-    // Buscar o crear thread
-    const [threadResult] = await getThreadByUserAndCourse(user_id, course_id);
-    let threadId = threadResult.length > 0 ? threadResult[0].assistant_thread_id : null;
+    let usedThreadId = providedThreadId;
 
-    const { respuesta, threadId: usedThreadId } = await sendMessageToAssistant({
+    // Si no se proporciona un threadId Y no se fuerza uno nuevo, buscar uno existente
+    if (!usedThreadId && !forceNewThread) {
+      const [threadResult] = await getThreadByUserAndCourse(user_id, course_id);
+      if (threadResult.length > 0) {
+        usedThreadId = threadResult[0].assistant_thread_id;
+      }
+    }
+
+    const { respuesta, threadId: newThreadId } = await sendMessageToAssistant({
       assistantId,
-      threadId,
+      threadId: usedThreadId,
       message
     });
 
-    if (!threadId) {
-      await createThreadEntry({ user_id, course_id, assistant_thread_id: usedThreadId });
-      threadId = usedThreadId;
+    // Si no existía un thread, lo registramos ahora
+    if (!usedThreadId) {
+      await createThreadEntry({
+        user_id,
+        course_id,
+        assistant_thread_id: newThreadId
+      });
+      usedThreadId = newThreadId;
     }
 
-    await saveMessage({ thread_id: threadId, user_id, course_id, role: 'user', content: message });
-    await saveMessage({ thread_id: threadId, user_id, course_id, role: 'assistant', content: respuesta });
+    // Guardamos mensajes
+    await saveMessage({ thread_id: usedThreadId, user_id, course_id, role: 'user', content: message });
+    await saveMessage({ thread_id: usedThreadId, user_id, course_id, role: 'assistant', content: respuesta });
 
-    res.json({ respuesta });
+    res.json({ respuesta, threadId: usedThreadId }); // 👈 devolvemos también el thread usado
   } catch (error) {
     console.error('❌ Error en POST /chat/:courseId:', error);
     res.status(500).json({ fatal: error.message });
   }
 });
+
 
 // GET /api/chat/:courseId/history
 router.get('/:courseId/history', checkToken, async (req, res) => {
