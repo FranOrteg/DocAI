@@ -43,6 +43,10 @@ export class ProfesorComponent implements AfterViewInit {
 
   onCourseSelected(course: any) {
     this.selectedCourse = course;
+
+    // 🔁 Resetear conversación y thread
+    this.selectedThreadId = null;
+    this.assistantChatComponent?.loadHistory([]);
   }
 
   loadCourses() {
