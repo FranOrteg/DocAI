@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AssistantService } from '../../services/assistant.service';
@@ -14,7 +14,9 @@ export class AssistantChatComponent {
   @Input() courseId!: number;
   @Input() threadId: string | null = null;
   @Input() forceNewThread: boolean = false;
-  @Output() threadCreated = new EventEmitter<string>(); // ⬅️ nuevo output
+  @Output() threadCreated = new EventEmitter<string>();
+
+  @ViewChild('messagesContainer') messagesContainer!: ElementRef;
 
   messages: { from: 'user' | 'assistant'; text: string }[] = [];
   userInput = '';
@@ -65,5 +67,16 @@ export class AssistantChatComponent {
       from: msg.role === 'user' ? 'user' : 'assistant',
       text: msg.content
     }));
+  }
+
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    try {
+      this.messagesContainer.nativeElement.scrollTop =
+        this.messagesContainer.nativeElement.scrollHeight;
+    } catch (_) { }
   }
 }

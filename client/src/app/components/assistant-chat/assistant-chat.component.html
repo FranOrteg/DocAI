@@ -1,11 +1,26 @@
-<div class="chat-box">
-    <div *ngFor="let msg of messages" [class]="msg.from">
-      <p>{{ msg.text }}</p>
-    </div>
-  
-    <div class="input-box">
-      <input [(ngModel)]="userInput" (keydown.enter)="sendMessage()" placeholder="Escribe tu mensaje..." />
-      <button (click)="sendMessage()" [disabled]="loading || !userInput.trim()">Enviar</button>
+<div class="chat-wrapper">
+  <div class="chat-container" #messagesContainer>
+    <div class="messages">
+      <div *ngFor="let msg of messages" [ngClass]="msg.from" class="message">
+        {{ msg.text }}
+      </div>
+
+      <div *ngIf="loading" class="message assistant">
+        <em>El asistente está escribiendo...</em>
+      </div>
     </div>
   </div>
-  
+
+  <div class="input-container">
+    <input
+      type="text"
+      [(ngModel)]="userInput"
+      placeholder="Escribe tu mensaje..."
+      (keydown.enter)="sendMessage()"
+      [disabled]="loading"
+    />
+    <button class="send-button" (click)="sendMessage()" [disabled]="loading || !userInput.trim()">
+      <i class="fa-solid fa-microchip"></i>
+    </button>
+  </div>
+</div>

@@ -25,3 +25,7 @@ h4 {
     font-size: 18px;
     font-weight: bold;
 }
+
+.card{
+    border-radius: 20px;
+}

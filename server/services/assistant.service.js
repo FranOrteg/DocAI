@@ -8,7 +8,7 @@ const createAssistantForCourse = async (vectorStoreId, courseName = 'Curso sin n
         name: `Asistente ${courseName}`,
         // instructions: `Eres un asistente que ayuda a preparar clases. Usa los documentos del curso "${courseName}" para responder.`,        
 
-        instructions: "Responde solo con OK",
+        instructions: "Responde como si fueses un instructor",
         model: 'gpt-4-turbo',
         tools: [{ type: 'file_search' }],
         tool_resources: {
