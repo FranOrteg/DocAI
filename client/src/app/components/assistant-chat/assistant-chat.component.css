@@ -71,13 +71,14 @@ input {
 }
 
 i {
-  font-size: 32px;
-  margin-left: 10px;
+  font-size: 44px;
+  margin-left: 15px;
   color: #C1C1C1;
 }
 
 i:hover{
   color: gray;
+  font-size: 46px;
 }
 
 .send-button:disabled {

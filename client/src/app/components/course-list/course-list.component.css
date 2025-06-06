@@ -35,6 +35,7 @@
 
 .fa-regular:hover {
   color: rgb(170, 46, 46);
+  font-size: 20px;
 }
 
 .spinner-border {
