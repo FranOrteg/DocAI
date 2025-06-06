@@ -30,11 +30,24 @@ h4 {
     border-radius: 20px;
 }
 
-.sidebar {
-    background: rgb(250, 250, 250);
-}
-
 .titulo{
     text-align: center;
     margin-top: 30px;
 }
+
+.row {
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: rgb(225, 225, 225);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.central {
+    background: rgb(240,240,240);
+}
+

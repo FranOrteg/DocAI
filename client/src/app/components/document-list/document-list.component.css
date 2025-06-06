@@ -1,11 +1,32 @@
-ul {
-    list-style: none;
-    padding: 0;
-  }
-  li {
-    margin-bottom: 8px;
-  }
-  a {
-    text-decoration: underline;
-  }
-  
+.card {
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  background-color: white;
+}
+
+.card-body {
+  padding: 1rem 1.5rem;
+}
+
+.list-group-item {
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.fa-regular {
+  font-size: 24px;
+}
+
+.fa-regular:hover {
+  color: rgb(170, 46, 46);
+  cursor: pointer;
+}
+
+.text-truncate {
+  text-decoration: none;
+  color: black;
+  font-style: italic;
+}

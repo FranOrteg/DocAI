@@ -1,13 +1,24 @@
-<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
-  <div class="mb-3">
-    <label for="file">Seleccionar documento</label>
-    <input 
-      #fileInput
-      id="file"
-      type="file"
-      (change)="onFileChange($event)"
-      class="form-control"
-    />
+<div class="card mb-3">
+  <div class="card-body">
+    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+
+      <!-- Label + icono -->
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <label class="form-label mb-0">Seleccionar Documento</label>
+        <i class="fa-regular fa-plus" style="cursor: pointer;" (click)="fileInput.click()"></i>
+      </div>
+
+      <!-- Input file oculto -->
+      <input #fileInput id="file" type="file" (change)="onFileChange($event)" hidden />
+
+      <!-- Nombre del archivo seleccionado -->
+      <div class="form-text mb-3" *ngIf="uploadForm.get('document')?.value as file">
+        {{ file?.name }}
+      </div>
+
+
+      <!-- Botón subir -->
+      <button class="btn" type="submit" [disabled]="uploadForm.invalid">Upload</button>
+    </form>
   </div>
-  <button class="btn btn-primary" type="submit" [disabled]="uploadForm.invalid">Subir</button>
-</form>
+</div>

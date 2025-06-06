@@ -1,0 +1,41 @@
+.card {
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  background-color: white;
+}
+
+.card-body {
+  padding: 1rem 1.5rem;
+}
+
+.list-group-item {
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.form-label{
+    font-weight: bold;
+}
+
+.form-text {
+  font-size: 0.9rem;
+  color: #333;
+  font-style: italic;
+}
+
+.fa-regular {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.btn {
+    background-color: rgb(228, 228, 228);
+    color: rgb(50, 50, 50);
+}
+
+.btn:hover {
+    background-color: rgb(174, 174, 174);
+    color: rgb(255, 255, 255);
+}
