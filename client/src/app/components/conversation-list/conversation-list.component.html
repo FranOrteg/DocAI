@@ -1,4 +1,5 @@
-<ul *ngIf="!loading && conversations.length > 0" class="list-group mt-2">
+<div class="container conversaciones">
+  <ul *ngIf="!loading && conversations.length > 0" class="list-group mt-2">
   <li
     *ngFor="let thread of conversations"
     (click)="selectThread(thread)"
@@ -15,3 +16,5 @@
     <i class="fa-regular fa-message"></i>
   </li>
 </ul>
+
+</div>

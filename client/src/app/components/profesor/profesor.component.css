@@ -29,3 +29,7 @@ h4 {
 .card{
     border-radius: 20px;
 }
+
+.sidebar {
+    background: rgb(250, 250, 250);
+}

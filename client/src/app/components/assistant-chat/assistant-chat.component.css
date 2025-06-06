@@ -73,6 +73,10 @@ input {
 i {
   font-size: 32px;
   margin-left: 10px;
+  color: #C1C1C1;
+}
+
+i:hover{
   color: gray;
 }
 

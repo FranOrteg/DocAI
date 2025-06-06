@@ -19,7 +19,7 @@
       (keydown.enter)="sendMessage()"
       [disabled]="loading"
     />
-    <button class="send-button" (click)="sendMessage()" [disabled]="loading || !userInput.trim()">
+    <button class="send-button" (click)="sendMessage()" [disabled]="loading">
       <i class="fa-solid fa-microchip"></i>
     </button>
   </div>
