@@ -21,7 +21,10 @@
 
       <!-- PARTE INFERIOR: Conversaciones -->
       <div class="mt-4">
-        <button class="btn btn-success w-100 mb-2" (click)="startNewConversation()">🆕 Nueva conversación</button>
+        <div class="container nuevaConversacion">
+          <h4>Conversaciones anteriores</h4>
+          <i class="fa-regular fa-plus" (click)="startNewConversation()"></i>
+        </div>
 
         <app-conversation-list [courseId]="selectedCourse?.id"
           (threadSelected)="onThreadSelected($event)"></app-conversation-list>
@@ -37,7 +40,7 @@
       </div>
 
       <div *ngIf="selectedCourse">
-        <h3 class="mb-4">Curso: {{ selectedCourse.name }}</h3>
+        <h3 class="mb-4">{{ selectedCourse.name }}</h3>
 
         <!-- CHAT -->
         <div class="card shadow-sm mb-4">
