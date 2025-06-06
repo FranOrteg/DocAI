@@ -1,20 +1,29 @@
 <div class="container">
 
   <div *ngIf="loading">Cargando cursos...</div>
-  
+
   <ul *ngIf="!loading && courses.length > 0" class="list-group">
     <li *ngFor="let course of courses" (click)="selectCourse(course)" class="list-group-item">
       <div class="course-content">
         <strong class="name">{{ course.name }}</strong>
         <div class="description">{{ course.description }}</div>
       </div>
-      <i class="fa-regular fa-trash-can" (click)="delete(course.id); $event.stopPropagation();"></i>
+      <!-- Spinner o icono de papelera -->
+      <ng-container *ngIf="!loadingCourses.includes(course.id); else loadingIcon">
+        <i class="fa-regular fa-trash-can" (click)="delete(course.id); $event.stopPropagation();"></i>
+      </ng-container>
+
+      <ng-template #loadingIcon>
+        <div class="spinner-border spinner-border-sm text-secondary" role="status">
+          <span class="visually-hidden">Eliminando...</span>
+        </div>
+      </ng-template>
+
     </li>
   </ul>
-  
-  
+
+
   <div *ngIf="!loading && courses.length === 0">
     No tienes cursos creados.
   </div>
 </div>
-

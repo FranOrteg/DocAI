@@ -17,6 +17,7 @@ export class CourseListComponent implements OnChanges {
 
   courses: any[] = [];
   loading = false;
+  loadingCourses: number[] = [];
 
   constructor(private courseService: CourseService) { }
 
@@ -37,22 +38,27 @@ export class CourseListComponent implements OnChanges {
   }
 
   async delete(courseId: number) {
+    if (this.loadingCourses.includes(courseId)) return;
+
     if (confirm('¿Estás seguro de que quieres borrar este curso? Se eliminarán también sus documentos y el asistente.')) {
+      this.loadingCourses.push(courseId);
+
       try {
         await this.courseService.deleteCourse(courseId);
         await this.loadCourses();
 
-        // 👇 Si el curso borrado era el seleccionado, emitir null
         if (this.selectedCourseId === courseId) {
           this.courseSelected.emit(null);
         }
-
       } catch (error) {
         alert('Error al borrar el curso');
         console.error(error);
+      } finally {
+        this.loadingCourses = this.loadingCourses.filter(id => id !== courseId);
       }
     }
   }
+
 
   selectCourse(course: any) {
     this.courseSelected.emit(course);
