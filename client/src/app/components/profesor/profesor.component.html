@@ -36,11 +36,11 @@
 
       <!-- Perfil arriba a la derecha -->
       <div class="position-absolute top-0 end-0 p-2">
-        <img src="/assets/img/profile-icon.svg" alt="Perfil" class="rounded-circle" style="width: 40px;">
+        <i class="fa-regular fa-user"></i>
       </div>
 
       <div *ngIf="selectedCourse">
-        <h3 class="mb-4">{{ selectedCourse.name }}</h3>
+        <h3 class="mb-4 titulo">{{ selectedCourse.name }}</h3>
 
         <!-- CHAT -->
         <div class="card shadow-sm mb-4">

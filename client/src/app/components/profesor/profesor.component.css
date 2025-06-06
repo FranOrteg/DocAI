@@ -33,3 +33,8 @@ h4 {
 .sidebar {
     background: rgb(250, 250, 250);
 }
+
+.titulo{
+    text-align: center;
+    margin-top: 30px;
+}
