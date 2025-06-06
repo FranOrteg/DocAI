@@ -1,28 +1,33 @@
-ul {
-  list-style: none;
-  padding: 0;
+h2 {
+  font-size: 40px;
 }
 
-li {
-  padding: 8px;
-  margin-bottom: 6px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #f9f9f9;
+ul {
+  list-style: none;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.list-group-item {
+  margin-bottom: 10px;
+  border-radius: 15px;
+  background-color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  height: 80px;
+  font-size: 24px;
 }
 
-button {
-  background-color: crimson;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  cursor: pointer;
+.fa-regular {
+  font-size: 24px;
 }
 
-button:hover {
-  background-color: darkred;
+.fa-regular:hover{
+  color: red;
+}
+
+.name{
+  font-size: 24px;
 }

@@ -7,6 +7,7 @@ import { CreateCourseComponent } from '../create-course/create-course.component'
 import { CourseListComponent } from '../course-list/course-list.component';
 import { ConversationListComponent } from "../conversation-list/conversation-list.component";
 import { AssistantService } from '../../services/assistant.service';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-profesor',
@@ -30,6 +31,8 @@ export class ProfesorComponent implements AfterViewInit {
   selectedCourse: any = null;
   reloadCoursesFlag = Date.now(); // Para refrescar CourseList
   selectedThreadId: string | null = null;
+  modalVisible = false;
+  modalInstance: bootstrap.Modal | null = null;
 
   @ViewChild(DocumentListComponent) docListComponent!: DocumentListComponent;
   @ViewChild(AssistantChatComponent) assistantChatComponent!: AssistantChatComponent;
@@ -58,9 +61,22 @@ export class ProfesorComponent implements AfterViewInit {
     console.log('✅ Curso creado:', course);
     this.selectedCourse = course;
     this.reloadCoursesFlag = Date.now();
+  
+    // Cerrar modal solo si tienes instancia activa
+    if (this.modalInstance) {
+      this.modalInstance.hide();
+  
+      // Limpieza forzada por seguridad
+      setTimeout(() => {
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) backdrop.remove();
+        document.body.classList.remove('modal-open');
+        document.body.style.removeProperty('overflow');
+        document.body.style.removeProperty('padding-right');
+      }, 300);
+    }
   }
-
-
+  
   onThreadSelected(thread: any) {
     console.log('📂 Thread seleccionado:', thread);
     this.selectedThreadId = thread.assistant_thread_id;
@@ -87,5 +103,13 @@ export class ProfesorComponent implements AfterViewInit {
     this.selectedThreadId = newThreadId;
     this.conversationListComponent?.loadConversations();
   }
+
+  abrirDialogoCurso() {
+    const modalEl = document.getElementById('createCourseModal');
+    if (modalEl) {
+      this.modalInstance = new bootstrap.Modal(modalEl, { backdrop: 'static' });
+      this.modalInstance.show();
+    }
+  }  
 
 }

@@ -1,10 +1,7 @@
-<div>
-    <h3>Crear nuevo curso</h3>
-    <input type="text" placeholder="Nombre" [(ngModel)]="name" />
-    <br />
-    <textarea placeholder="Descripción" [(ngModel)]="description"></textarea>
-    <br />
-    <button (click)="createCourse()" [disabled]="loading">Crear</button>
-    <div *ngIf="error" style="color:red">{{ error }}</div>
-  </div>
-  
+  <h3>Crear nuevo curso</h3>
+  <input type="text" placeholder="Nombre" [(ngModel)]="name" />
+  <br />
+  <textarea placeholder="Descripción" [(ngModel)]="description"></textarea>
+  <br />
+  <button (click)="createCourse()" [disabled]="loading">Crear</button>
+  <div *ngIf="error" style="color:red">{{ error }}</div>

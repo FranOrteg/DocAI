@@ -1,28 +1,77 @@
-<h2>Panel del Profesor</h2>
+<div class="container-fluid">
+  <div class="row">
 
-<!-- Listar y seleccionar cursos -->
-<app-course-list [reloadTrigger]="reloadCoursesFlag" [selectedCourseId]="selectedCourse?.id"
-  (courseSelected)="onCourseSelected($event)"></app-course-list>
+    <!-- SIDEBAR IZQUIERDO -->
+    <div class="col-md-3 bg-light sidebar p-3 d-flex flex-column justify-content-between" style="height: 100vh;">
 
-<!-- Crear curso -->
-<app-create-course (courseCreated)="loadCourses()" (courseSelected)="onCourseSelected($event)"></app-create-course>
+      <!-- PARTE SUPERIOR: Cursos -->
+      <div>
+        <div class="container contendorCrearCurso">
+          <h2>Cursos</h2>
+          <!-- Usa solo el evento click -->
 
-<!-- Contenido del curso seleccionado -->
-<div *ngIf="selectedCourse">
-  <h3>Curso: {{ selectedCourse.name }}</h3>
+          <i class="fa-regular fa-plus" (click)="abrirDialogoCurso()"></i>
 
-  <app-upload-document [courseId]="selectedCourse.id" (uploadSuccess)="onDocumentUploaded()"></app-upload-document>
+        </div>
 
-  <app-document-list [courseId]="selectedCourse.id"></app-document-list>
+        <app-course-list [reloadTrigger]="reloadCoursesFlag" [selectedCourseId]="selectedCourse?.id"
+          (courseSelected)="onCourseSelected($event)"></app-course-list>
 
-  <button (click)="startNewConversation()" class="btn btn-primary mb-2">
-    🆕 Nueva conversación
-  </button>
+      </div>
 
-  <app-assistant-chat [courseId]="selectedCourse.id" [threadId]="selectedThreadId"
-    (threadCreated)="onThreadCreated($event)"></app-assistant-chat>
+      <!-- PARTE INFERIOR: Conversaciones -->
+      <div class="mt-4">
+        <button class="btn btn-success w-100 mb-2" (click)="startNewConversation()">🆕 Nueva conversación</button>
 
-  <app-conversation-list [courseId]="selectedCourse?.id"
-    (threadSelected)="onThreadSelected($event)"></app-conversation-list>
+        <app-conversation-list [courseId]="selectedCourse?.id"
+          (threadSelected)="onThreadSelected($event)"></app-conversation-list>
+      </div>
+    </div>
 
+    <!-- ZONA CENTRAL -->
+    <div class="col-md-9 position-relative p-4">
+
+      <!-- Perfil arriba a la derecha -->
+      <div class="position-absolute top-0 end-0 p-2">
+        <img src="/assets/img/profile-icon.svg" alt="Perfil" class="rounded-circle" style="width: 40px;">
+      </div>
+
+      <div *ngIf="selectedCourse">
+        <h3 class="mb-4">Curso: {{ selectedCourse.name }}</h3>
+
+        <!-- CHAT -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body"
+            style="height: 400px; overflow-y: auto; background-image: url('/assets/img/Yoda.svg'); background-repeat: no-repeat; background-position: center;">
+            <app-assistant-chat [courseId]="selectedCourse.id" [threadId]="selectedThreadId"
+              (threadCreated)="onThreadCreated($event)"></app-assistant-chat>
+          </div>
+        </div>
+
+        <!-- DOCUMENTOS -->
+        <app-upload-document [courseId]="selectedCourse.id"
+          (uploadSuccess)="onDocumentUploaded()"></app-upload-document>
+
+        <app-document-list [courseId]="selectedCourse.id"></app-document-list>
+      </div>
+    </div>
+
+    <!-- Modal Bootstrap -->
+    <div class="modal" id="createCourseModal" tabindex="-1" aria-labelledby="createCourseModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="createCourseModalLabel">Crear nuevo curso</h5>
+            <button type="button" class="btn-close" (click)="modalInstance?.hide()" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <app-create-course (courseCreated)="onCourseCreated($event)"></app-create-course>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
 </div>

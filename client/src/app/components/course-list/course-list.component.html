@@ -1,18 +1,17 @@
-<h2>Cursos</h2>
+<div class="container">
 
-<div *ngIf="loading">Cargando cursos...</div>
-
-<ul *ngIf="!loading && courses.length > 0">
-  <li *ngFor="let course of courses" (click)="selectCourse(course)">
-    <strong>{{ course.name }}</strong> - {{ course.description }}
-    <button 
-      (click)="delete(course.id); $event.stopPropagation();"
-    >
-      🗑️ Borrar
-    </button>
-  </li>
-</ul>
-
-<div *ngIf="!loading && courses.length === 0">
-  No tienes cursos creados.
+  <div *ngIf="loading">Cargando cursos...</div>
+  
+  <ul *ngIf="!loading && courses.length > 0" class="list-group">
+    <li *ngFor="let course of courses" (click)="selectCourse(course)" class="list-group-item">
+      <strong class="name">{{ course.name }}</strong>  {{ course.description }}
+     
+      <i class="fa-regular fa-trash-can" (click)="delete(course.id); $event.stopPropagation();"></i>
+    </li>
+  </ul>
+  
+  <div *ngIf="!loading && courses.length === 0">
+    No tienes cursos creados.
+  </div>
 </div>
+
