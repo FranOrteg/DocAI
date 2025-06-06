@@ -4,11 +4,14 @@
   
   <ul *ngIf="!loading && courses.length > 0" class="list-group">
     <li *ngFor="let course of courses" (click)="selectCourse(course)" class="list-group-item">
-      <strong class="name">{{ course.name }}</strong>  {{ course.description }}
-     
+      <div class="course-content">
+        <strong class="name">{{ course.name }}</strong>
+        <div class="description">{{ course.description }}</div>
+      </div>
       <i class="fa-regular fa-trash-can" (click)="delete(course.id); $event.stopPropagation();"></i>
     </li>
   </ul>
+  
   
   <div *ngIf="!loading && courses.length === 0">
     No tienes cursos creados.

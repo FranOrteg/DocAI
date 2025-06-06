@@ -1,7 +1,28 @@
-  <h3>Crear nuevo curso</h3>
-  <input type="text" placeholder="Nombre" [(ngModel)]="name" />
-  <br />
-  <textarea placeholder="Descripción" [(ngModel)]="description"></textarea>
-  <br />
-  <button (click)="createCourse()" [disabled]="loading">Crear</button>
-  <div *ngIf="error" style="color:red">{{ error }}</div>
+<div class="modal-body">
+
+  <input
+    type="text"
+    class="form-control mb-3"
+    placeholder="Nombre"
+    [(ngModel)]="name"
+  />
+
+  <textarea
+    class="form-control mb-3 rounded"
+    placeholder="Descripción"
+    [(ngModel)]="description"
+    rows="3"
+  ></textarea>
+
+  <div class="d-flex justify-content-end">
+    <button
+      class="btn"
+      (click)="createCourse()"
+      [disabled]="loading"
+    >
+      Crear
+    </button>
+  </div>
+
+  <div *ngIf="error" class="text-danger mt-2">{{ error }}</div>
+</div>
