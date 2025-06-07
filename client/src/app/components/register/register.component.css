@@ -25,6 +25,12 @@
   margin-bottom: 20px;
 }
 
+label{
+  margin-bottom: 5px;
+  font-size: 16px;
+  padding-left: 4px;
+}
+
 form {
   width: 100%;
 }
@@ -46,14 +52,13 @@ form {
   width: 100%;
 }
 
-/* Ojo de contraseña */
 .password-container {
   position: relative;
   width: 100%;
 }
 
 .password-container input {
-  padding-right: 40px; 
+  padding-right: 40px;
 }
 
 .btn-pass {
@@ -71,17 +76,22 @@ form {
 .boton {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .btn {
-  background-color: #e2f45a;
+  background-color: lightgray;
   border: none;
   color: black;
   width: 150px;
+  height: 45px;
   padding: 10px;
   border-radius: 15px;
-  cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgb(200, 200, 200);
+    width: 152px;
 }
 
 /* Errores */
