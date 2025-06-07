@@ -25,7 +25,7 @@
   margin-bottom: 20px;
 }
 
-label{
+label {
   margin-bottom: 5px;
   font-size: 16px;
   padding-left: 4px;
@@ -41,6 +41,8 @@ form {
   border-radius: 15px;
   padding: 10px;
   width: 100%;
+  border: 1px solid rgb(220, 220, 220);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-select {
@@ -50,6 +52,8 @@ form {
   border-radius: 15px;
   padding: 10px;
   width: 100%;
+  border: 1px solid rgb(220, 220, 220);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .password-container {
@@ -90,8 +94,8 @@ form {
 }
 
 .btn:hover {
-    background-color: rgb(200, 200, 200);
-    width: 152px;
+  background-color: rgb(200, 200, 200);
+  width: 152px;
 }
 
 /* Errores */

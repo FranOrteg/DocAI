@@ -44,18 +44,26 @@ export class RegisterComponent {
       role: formValue.role ?? 'Alumno'
     };
 
-    const response = await this.authService.register(user);
+    try {
+      const response = await this.authService.register(user);
+      console.log('Respuesta del backend:', response);
 
-    if ('token' in response) {
-      this.authService.saveToken(response.token as string);
-      alert('Registro exitoso');
-      this.router.navigate(['/login']);
-    } else if ('fatal' in response) {
-      alert('Error: ' + response.fatal);
+      if ('success' in response && 'id' in response) {
+        alert('Registro exitoso');
+        this.router.navigate(['/login']);
+      } else if ('fatal' in response) {
+        alert('Error: ' + response.fatal);
+      } else {
+        alert('Error inesperado al registrar el usuario.');
+      }
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      alert('Error de conexión o del servidor.');
     }
 
     this.formularioRegister.reset();
   }
+
 
   checkPasswordType() {
     this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
