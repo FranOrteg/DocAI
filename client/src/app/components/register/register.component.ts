@@ -26,7 +26,7 @@ export class RegisterComponent {
   constructor(private authService: AuthService, private router: Router) {
     this.formularioRegister = new FormGroup({
       name: new FormControl<string | null>(null, [Validators.required]),
-      email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
+      email: new FormControl<string | null>(null, [Validators.required, Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)]),
       password: new FormControl<string | null>(null, [Validators.required]),
       role: new FormControl<'Administrador' | 'Profesor' | 'Alumno' | null>(null, [Validators.required])
     });
@@ -41,7 +41,7 @@ export class RegisterComponent {
       name: formValue.name ?? '',
       email: formValue.email ?? '',
       password: formValue.password ?? '',
-      role: formValue.role ?? 'Alumno'  
+      role: formValue.role ?? 'Alumno'
     };
 
     const response = await this.authService.register(user);
@@ -63,6 +63,8 @@ export class RegisterComponent {
 
   checkError(control: string, validator: string) {
     return this.formularioRegister.get(control)?.hasError(validator) &&
-           this.formularioRegister.get(control)?.touched;
+      this.formularioRegister.get(control)?.touched;
   }
+
+
 }

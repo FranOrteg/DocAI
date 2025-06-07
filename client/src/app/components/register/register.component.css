@@ -1,69 +1,92 @@
-.error {
-    color: #c1d23e;
+/* Fondo centrado */
+.register {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(225, 225, 225);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-h4 {
-    font-family: 'Caveat', cursive;
-}
-
+/* Formulario general */
 .formulario {
-    max-width: 500px;
-    margin: 0 auto;
-    border: 1px solid black;
-    border-radius: 15px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    background-color: #2a3d6b;
-    color: white;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 15px;
+  background-color: white;
+  color: black;
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .formulario h4 {
-    font-size: 28px;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 form {
-    width: 400px;
-    margin: 0 auto;
-    padding: 10px;
+  width: 100%;
 }
 
 .form-control {
-    background-color: #2a3d6b;
-    border: 1px solid #c1d23e;
-    color: white;
+  background-color: rgb(240, 240, 240);
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+  width: 100%;
 }
 
 .form-select {
-    background-color: #2a3d6b;
-    border: 1px solid #c1d23e;
-    color: white;
+  background-color: rgb(240, 240, 240);
+  border: none;
+  color: black;
+  border-radius: 15px;
+  padding: 10px;
+  width: 100%;
 }
 
-.password {
-    position: relative;
+/* Ojo de contraseña */
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  padding-right: 40px; 
 }
 
 .btn-pass {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background-color: #2a3d6b;
-    border: 1px solid #2a3d6b;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Botón centrado */
+.boton {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .btn {
-    border: 1px solid #c1d23e;
-    background-color: #c1d23e;
-    color: b;
-    width: 200px;
+  background-color: #e2f45a;
+  border: none;
+  color: black;
+  width: 150px;
+  padding: 10px;
+  border-radius: 15px;
+  cursor: pointer;
 }
 
-.boton {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+/* Errores */
+.error {
+  color: #c1d23e;
+  font-size: 0.9em;
+  margin-top: 5px;
 }
-
