@@ -1,58 +1,61 @@
-.container {
-    position: relative;
-}
-
-h4 {
-    font-family: 'Caveat', cursive;
+.login {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(225, 225, 225);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .formulario {
+    width: 100%;
     max-width: 500px;
-    margin: 0 auto;
-    border: 1px solid black;
     border-radius: 15px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    background-color: #2a3d6b;
-    color: white;
-    position: relative;
+    background-color: white;
+    color: black;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .formulario h4 {
     font-size: 28px;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 form {
-    width: 400px;
-    margin: 0 auto;
-    padding: 10px;
+    width: 100%;
 }
 
 .form-control {
-    background-color: #2a3d6b;
-    border: 1px solid #c1d23e;
-    color: white;
-}
+    background-color: rgb(240, 240, 240);
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid rgb(220, 220, 220);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
-.form-select {
-    background-color: #2a3d6b;
-    border: 1px solid #c1d23e;
-    color: white;
 }
 
 .btn {
-    background-color: #c1d23e;
-    border: 1px solid #c1d23e;
+    background-color: lightgray;
+    border: none;
     color: black;
     width: 150px;
+    height: 45px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.btn:hover {
+    background-color: rgb(200, 200, 200);
+    width: 152px;
+
 }
 
 .boton {
     display: flex;
     justify-content: center;
-    padding: 20px;
+    margin-top: 40px;
 }
-

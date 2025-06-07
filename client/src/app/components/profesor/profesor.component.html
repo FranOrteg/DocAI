@@ -22,7 +22,7 @@
       <!-- PARTE INFERIOR: Conversaciones -->
       <div class="mt-4">
         <div class="container nuevaConversacion">
-          <h4>Conversaciones anteriores</h4>
+          <h4>Conversaciones</h4>
           <i class="fa-regular fa-plus" (click)="startNewConversation()"></i>
         </div>
 
@@ -45,7 +45,7 @@
         <!-- CHAT -->
         <div class="card shadow-sm mb-4">
           <div class="card-body"
-            style="height: 400px; overflow-y: auto; background-image: url('/assets/img/Yoda.svg'); background-repeat: no-repeat; background-position: center;">
+            style="height: 400px; overflow-y: auto; background-repeat: no-repeat; background-position: center;">
             <app-assistant-chat [courseId]="selectedCourse.id" [threadId]="selectedThreadId"
               (threadCreated)="onThreadCreated($event)"></app-assistant-chat>
           </div>
