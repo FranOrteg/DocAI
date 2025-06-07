@@ -4,7 +4,7 @@
 
     <form [formGroup]="formularioRegister" (ngSubmit)="onSubmit()">
       <div class="mb-3">
-        <label>Nombre</label>
+        <label>Name</label>
         <input class="form-control" formControlName="name" type="text">
         <p class="error" *ngIf="checkError('name', 'required')">El campo nombre es requerido</p>
       </div>
