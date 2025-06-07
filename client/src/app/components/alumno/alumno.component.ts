@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AssistantChatComponent } from '../assistant-chat/assistant-chat.component';
 import { ConversationListComponent } from '../conversation-list/conversation-list.component';
 import { AssistantService } from '../../services/assistant.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-alumno',
@@ -22,7 +23,10 @@ export class AlumnoComponent {
   @ViewChild(ConversationListComponent) conversationListComponent!: ConversationListComponent;
   @ViewChild(AssistantChatComponent) assistantChatComponent!: AssistantChatComponent;
 
-  constructor(private assistantService : AssistantService){}
+  constructor(
+    private assistantService : AssistantService,
+    private router: Router
+  ){}
 
   startNewConversation() {
     console.log('🆕 Iniciando nueva conversación');
@@ -49,6 +53,16 @@ export class AlumnoComponent {
       .catch(err => {
         console.error('❌ Error al cargar historial del thread:', err);
       });
+  }
+
+  logout() {
+    localStorage.clear(); // o tu lógica de logout
+    this.router.navigate(['/home']);
+  }
+
+  editProfile() {
+    // Puedes abrir un modal o navegar a una pantalla de edición
+    alert('Funcionalidad de editar perfil pendiente'); // temporal
   }
 
 }

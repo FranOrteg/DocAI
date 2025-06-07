@@ -7,6 +7,7 @@ import { CreateCourseComponent } from '../create-course/create-course.component'
 import { CourseListComponent } from '../course-list/course-list.component';
 import { ConversationListComponent } from "../conversation-list/conversation-list.component";
 import { AssistantService } from '../../services/assistant.service';
+import { Router } from '@angular/router';
 import * as bootstrap from 'bootstrap';
 
 @Component({
@@ -26,7 +27,10 @@ import * as bootstrap from 'bootstrap';
 })
 export class ProfesorComponent implements AfterViewInit {
 
-  constructor(private assistantService: AssistantService) { }
+  constructor(
+    private assistantService: AssistantService,
+    private router: Router
+  ) { }
 
   selectedCourse: any = null;
   reloadCoursesFlag = Date.now(); // Para refrescar CourseList
@@ -37,7 +41,7 @@ export class ProfesorComponent implements AfterViewInit {
   @ViewChild(DocumentListComponent) docListComponent!: DocumentListComponent;
   @ViewChild(AssistantChatComponent) assistantChatComponent!: AssistantChatComponent;
   @ViewChild(ConversationListComponent) conversationListComponent!: ConversationListComponent;
-
+  
   ngAfterViewInit(): void { }
 
   onDocumentUploaded() {
@@ -61,11 +65,11 @@ export class ProfesorComponent implements AfterViewInit {
     console.log('✅ Curso creado:', course);
     this.selectedCourse = course;
     this.reloadCoursesFlag = Date.now();
-  
+
     // Cerrar modal solo si tienes instancia activa
     if (this.modalInstance) {
       this.modalInstance.hide();
-  
+
       // Limpieza forzada por seguridad
       setTimeout(() => {
         const backdrop = document.querySelector('.modal-backdrop');
@@ -76,7 +80,7 @@ export class ProfesorComponent implements AfterViewInit {
       }, 300);
     }
   }
-  
+
   onThreadSelected(thread: any) {
     console.log('📂 Thread seleccionado:', thread);
     this.selectedThreadId = thread.assistant_thread_id;
@@ -110,6 +114,16 @@ export class ProfesorComponent implements AfterViewInit {
       this.modalInstance = new bootstrap.Modal(modalEl, { backdrop: 'static' });
       this.modalInstance.show();
     }
-  }  
+  }
+
+  logout() {
+    localStorage.clear(); // o tu lógica de logout
+    this.router.navigate(['/home']);
+  }
+
+  editProfile() {
+    // Puedes abrir un modal o navegar a una pantalla de edición
+    alert('Funcionalidad de editar perfil pendiente'); // temporal
+  }
 
 }

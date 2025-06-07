@@ -62,4 +62,8 @@ export class LoginComponent {
     }
 
   }
+  
+  navigateHome(){
+    this.router.navigate(['/home']);
+  }
 }

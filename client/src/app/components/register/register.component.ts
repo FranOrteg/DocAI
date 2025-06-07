@@ -75,4 +75,8 @@ export class RegisterComponent {
   }
 
 
+  navigateHome(){
+    this.router.navigate(['/home']);
+  }
+
 }

@@ -35,9 +35,17 @@
     <div class="col-md-9 central position-relative p-4">
 
       <!-- Perfil arriba a la derecha -->
-      <div class="position-absolute top-0 end-0 p-2">
-        <i class="fa-regular fa-user"></i>
+      <div class="position-absolute top-0 end-0 p-2 dropdown">
+        <i class="fa-regular fa-user fs-4" role="button" id="dropdownPerfil" data-bs-toggle="dropdown"
+          aria-expanded="false" style="cursor: pointer;"></i>
+
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownPerfil">
+          <li><a class="dropdown-item" (click)="editProfile()">Editar perfil</a></li>
+          <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
+        </ul>
       </div>
+
+
 
       <div *ngIf="selectedCourse">
         <h3 class="mb-4 titulo">{{ selectedCourse.name }}</h3>

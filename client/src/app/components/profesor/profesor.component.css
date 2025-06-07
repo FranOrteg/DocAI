@@ -60,3 +60,7 @@ h4 {
 .central {
     background: rgb(240, 240, 240);
 }
+
+li{
+    cursor: pointer;
+}
