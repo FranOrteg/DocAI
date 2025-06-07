@@ -1,1 +1,44 @@
-<p>alumno works!</p>
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- SIDEBAR IZQUIERDO -->
+        <div class="col-md-3 sidebar p-3 d-flex flex-column justify-content-between">
+
+            <!-- Conversaciones -->
+            <div>
+                <div class="nuevaConversacion d-flex justify-content-between align-items-center">
+                    <h4>Conversaciones</h4>
+                    <i class="fa-regular fa-plus" (click)="startNewConversation()"></i>
+                </div>
+
+                <app-conversation-list [courseId]="1" (threadSelected)="onThreadSelected($event)">
+                </app-conversation-list>
+
+            </div>
+
+        </div>
+
+        <!-- ZONA CENTRAL -->
+        <div class="col-md-9 central position-relative p-4">
+            <!-- Perfil arriba a la derecha -->
+            <div class="position-absolute top-0 end-0 p-2">
+                <i class="fa-regular fa-user"></i>
+            </div>
+
+            <div>
+                <h3 class="mb-4 titulo">Asistente</h3>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body"
+                        style="height: 400px; overflow-y: auto; background-repeat: no-repeat; background-position: center;">
+                        <app-assistant-chat [threadId]="selectedThreadId" [forceNewThread]="forceNewThread"
+                            [courseId]="1" (threadCreated)="onThreadCreated($event)">
+                        </app-assistant-chat>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
