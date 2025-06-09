@@ -9,7 +9,7 @@ const checkToken = async (req, res, next) => {
         return res.status(401).json({ error: 'Falta o formato incorrecto de autorización' });
     }
 
-    const token = authHeader.split(' ')[1]; // Separa "Bearer <token>"
+    const token = authHeader.split(' ')[1]; 
 
     let obj;
     try {

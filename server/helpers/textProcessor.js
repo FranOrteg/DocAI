@@ -7,7 +7,7 @@ const splitTextIntoChunks = (text, maxChunkSize = 1500) => {
     const chunks = [];
     let current = '';
 
-    const paragraphs = text.split(/\n\s*\n/); // separa por párrafos dobles
+    const paragraphs = text.split(/\n\s*\n/);
 
     for (const paragraph of paragraphs) {
         if ((current + paragraph).length > maxChunkSize) {
