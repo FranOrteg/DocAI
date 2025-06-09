@@ -43,3 +43,9 @@
 .fa-trash-can:hover {
   color: rgb(170, 46, 46);
 }
+
+.icons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
