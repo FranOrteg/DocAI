@@ -4,6 +4,8 @@ const { getCourseById } = require('../../models/courses.model');
 const { getThreadByUserAndCourse, createThreadEntry, getAllThreadsByUserAndCourse } = require('../../models/thread.model');
 const { saveMessage, getMessagesByThread } = require('../../models/message.model');
 const { sendMessageToAssistant } = require('../../services/assistant.service');
+const { deleteThread } = require('../../models/thread.model');
+const { deleteMessagesByThreadId } = require('../../models/message.model'); 
 
 // POST /api/chat/:courseId
 router.post('/:courseId', checkToken, async (req, res) => {
@@ -115,6 +117,42 @@ router.get('/thread/:threadId/history', checkToken, async (req, res) => {
     res.status(500).json({ fatal: error.message });
   }
 });
+
+
+// DELETE /api/chat/thread/:threadId
+router.delete('/thread/:threadId', checkToken, async (req, res) => {
+  try {
+    const thread_id = req.params.threadId;
+    const user_id = req.user.id;
+
+    // 1. Obtener el thread para verificar propiedad
+    const [threadRows] = await getThreadById(thread_id);
+
+    if (!threadRows.length) {
+      return res.status(404).json({ fatal: 'Conversación no encontrada' });
+    }
+
+    const thread = threadRows[0];
+
+    if (thread.user_id !== user_id) {
+      return res.status(403).json({ fatal: 'No tienes permiso para borrar esta conversación' });
+    }
+
+    // 2. Borrar mensajes (opcional)
+    if (typeof deleteMessagesByThreadId === 'function') {
+      await deleteMessagesByThreadId(thread_id);
+    }
+
+    // 3. Borrar thread
+    await deleteThread(thread_id);
+    res.json({ success: true, message: 'Conversación eliminada correctamente' });
+
+  } catch (error) {
+    console.error('❌ Error en DELETE /chat/thread/:threadId:', error);
+    res.status(500).json({ fatal: error.message });
+  }
+});
+
 
 
 

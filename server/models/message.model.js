@@ -13,7 +13,12 @@ const getMessagesByThread = (thread_id) => {
     );
 };
 
+const deleteMessagesByThreadId = (thread_id) => {
+    return db.query('DELETE FROM messages WHERE thread_id = ?', [thread_id]);
+  };
+
 module.exports = {
     saveMessage,
-    getMessagesByThread
+    getMessagesByThread,
+    deleteMessagesByThreadId
 };
