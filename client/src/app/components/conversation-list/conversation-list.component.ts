@@ -37,4 +37,20 @@ export class ConversationListComponent implements OnChanges {
   selectThread(thread: any) {
     this.threadSelected.emit(thread);
   }
+
+  deleteThread(threadId: number, event: MouseEvent) {
+    event.stopPropagation();
+  
+    if (!confirm('¿Estás seguro de que quieres borrar esta conversación?')) return;
+  
+    this.assistanService.deleteThread(threadId)
+      .then(() => {
+        // Recargar lista de conversaciones
+        this.loadConversations();
+      })
+      .catch(error => {
+        console.error('❌ Error al borrar conversación:', error);
+      });
+  }
+  
 }

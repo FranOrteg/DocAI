@@ -9,7 +9,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
   padding: 10px 15px;
 }
 
@@ -34,8 +33,13 @@
 .fa-regular {
   font-size: 18px;
   padding-left: 10px;
+  cursor: pointer;
 }
 
 .fa-regular:hover {
   color: #007bff;
+}
+
+.fa-trash-can:hover {
+  color: rgb(170, 46, 46);
 }

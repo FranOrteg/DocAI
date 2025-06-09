@@ -4,7 +4,7 @@ const { getCourseById } = require('../../models/courses.model');
 const { getThreadByUserAndCourse, createThreadEntry, getAllThreadsByUserAndCourse } = require('../../models/thread.model');
 const { saveMessage, getMessagesByThread } = require('../../models/message.model');
 const { sendMessageToAssistant } = require('../../services/assistant.service');
-const { deleteThread } = require('../../models/thread.model');
+const { deleteThread, getThreadById } = require('../../models/thread.model');
 const { deleteMessagesByThreadId } = require('../../models/message.model'); 
 
 // POST /api/chat/:courseId
@@ -57,7 +57,7 @@ router.post('/:courseId', checkToken, async (req, res) => {
     await saveMessage({ thread_id: usedThreadId, user_id, course_id, role: 'user', content: message });
     await saveMessage({ thread_id: usedThreadId, user_id, course_id, role: 'assistant', content: respuesta });
 
-    res.json({ respuesta, threadId: usedThreadId }); // 👈 devolvemos también el thread usado
+    res.json({ respuesta, threadId: usedThreadId }); 
   } catch (error) {
     console.error('❌ Error en POST /chat/:courseId:', error);
     res.status(500).json({ fatal: error.message });

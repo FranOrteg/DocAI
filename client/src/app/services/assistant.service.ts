@@ -40,4 +40,10 @@ export class AssistantService {
     );
   }
 
+  deleteThread(threadId: number) {
+    return firstValueFrom(
+      this.http.delete<{ success: boolean; message: string }>(`${this.baseUrl}/thread/${threadId}`)
+    );
+  }
+  
 }

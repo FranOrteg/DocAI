@@ -1,20 +1,19 @@
 <div class="container conversaciones">
   <ul *ngIf="!loading && conversations.length > 0" class="list-group mt-2">
-  <li
-    *ngFor="let thread of conversations"
-    (click)="selectThread(thread)"
-    class="list-group-item"
-  >
-    <div class="thread-content">
-      <strong class="name">
-        {{ thread.topic || ('Conversación ' + (thread.created_at | date: 'short')) }}
-      </strong>
-      <div class="description">
-        ID: {{ thread.assistant_thread_id }}
+    <li *ngFor="let thread of conversations" class="list-group-item">
+      <div class="thread-content">
+        <strong class="name">
+          {{ thread.topic || ('Conversación ' + (thread.created_at | date: 'short')) }}
+        </strong>
+        <div class="description">
+          ID: {{ thread.assistant_thread_id }}
+        </div>
       </div>
-    </div>
-    <i class="fa-regular fa-message"></i>
-  </li>
-</ul>
+      <div class="icons">
+        <i class="fa-regular fa-message" (click)="selectThread(thread)"></i>
+        <i class="fa-regular fa-trash-can" (click)="deleteThread(thread.id, $event)"></i>
+      </div>
+    </li>
+  </ul>
 
 </div>
