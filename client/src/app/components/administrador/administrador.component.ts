@@ -47,15 +47,15 @@ export class AdministradorComponent {
 
   onCreateNew(type: 'user' | 'course') {
     if (type === 'user') {
-      this.selectedUser = {};
+      this.selectedUser = { id: null, name: '', email: '', role: '', password: '' };
       this.selectedCourse = null;
       this.isCreatingUser = true;
     } else {
-      this.selectedCourse = {};
+      this.selectedCourse = { id: null, name: '', description: '' };
       this.selectedUser = null;
       this.isCreatingCourse = true;
     }
-  }
+  }  
 
   onUserSaved() {
     this.reloadUsersFlag = Date.now();
@@ -75,4 +75,18 @@ export class AdministradorComponent {
   editProfile() {
     alert('Funcionalidad de editar perfil pendiente');
   }
+
+  onUserDeleted(deletedUserId: number) {
+    if (this.selectedUser && this.selectedUser.id === deletedUserId) {
+      this.selectedUser = null;
+    }
+  }
+
+  onCourseDeleted(deletedCourseId: number) {
+    if (this.selectedCourse && this.selectedCourse.id === deletedCourseId) {
+      this.selectedCourse = null;
+    }
+  }
+  
+  
 }

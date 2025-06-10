@@ -1,53 +1,56 @@
 <div class="container-fluid">
-    <div class="row">
-  
-      <!-- SIDEBAR IZQUIERDO -->
-      <div class="col-md-3 sidebar p-3 d-flex flex-column justify-content-between">
-        
-        <!-- Gestión de usuarios -->
-        <div>
-          <div class="container mb-2 d-flex justify-content-between align-items-center">
-            <h4>Usuarios</h4>
-            <i class="fa-regular fa-plus" (click)="onCreateNew('user')"></i>
-          </div>
-          <app-user-list [reloadTrigger]="reloadUsersFlag" (userSelected)="onUserSelected($event)"></app-user-list>
+  <div class="row">
+
+    <!-- SIDEBAR IZQUIERDO -->
+    <div class="col-md-3 sidebar p-3 d-flex flex-column justify-content-between">
+
+      <!-- Gestión de usuarios -->
+      <div>
+        <div class="container mb-2 d-flex justify-content-between align-items-center">
+          <h4>Usuarios</h4>
+          <i class="fa-regular fa-plus" (click)="onCreateNew('user')"></i>
         </div>
-  
-        <!-- Gestión de cursos -->
-        <div class="mt-4">
-          <div class="container mb-2 d-flex justify-content-between align-items-center">
-            <h4>Cursos</h4>
-            <i class="fa-regular fa-plus" (click)="onCreateNew('course')"></i>
-          </div>
-          <app-course-list [reloadTrigger]="reloadCoursesFlag" (courseSelected)="onCourseSelected($event)"></app-course-list>
-        </div>
+        <app-user-list [reloadTrigger]="reloadUsersFlag" [selectedUserId]="selectedUser?.id ?? null" (userSelected)="onUserSelected($event)"
+          (userDeleted)="onUserDeleted($event)"></app-user-list>
       </div>
-  
-      <!-- PANEL CENTRAL -->
-      <div class="col-md-9 central position-relative p-4">
-  
-        <!-- Perfil arriba a la derecha -->
-        <div class="position-absolute top-0 end-0 p-2 dropdown">
-          <i class="fa-regular fa-user fs-4" role="button" id="dropdownPerfil" data-bs-toggle="dropdown"
-            aria-expanded="false" style="cursor: pointer;"></i>
-  
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownPerfil">
-            <li><a class="dropdown-item" (click)="editProfile()">Editar perfil</a></li>
-            <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
-          </ul>
+
+      <!-- Gestión de cursos -->
+      <div class="mt-4">
+        <div class="container mb-2 d-flex justify-content-between align-items-center">
+          <h4>Cursos</h4>
+          <i class="fa-regular fa-plus" (click)="onCreateNew('course')"></i>
         </div>
-  
-        <div *ngIf="selectedUser">
-          <h3 class="mb-4">{{ isCreatingUser ? 'Crear usuario' : 'Editar usuario' }}</h3>
-          <app-user-form [user]="selectedUser" (saved)="onUserSaved()"></app-user-form>
-        </div>        
-  
-        <div *ngIf="selectedCourse">
-          <h3 class="mb-4">{{ isCreatingCourse ? 'Crear curso' : 'Editar curso' }}</h3>
-          <app-course-form [course]="selectedCourse" (saved)="onCourseSaved()"></app-course-form>
-        </div>
-        
+        <app-course-list [reloadTrigger]="reloadCoursesFlag" [selectedCourseId]="selectedCourse?.id ?? null"
+          (courseSelected)="onCourseSelected($event)" (courseDeleted)="onCourseDeleted($event)">
+        </app-course-list>
+
       </div>
     </div>
+
+    <!-- PANEL CENTRAL -->
+    <div class="col-md-9 central position-relative p-4">
+
+      <!-- Perfil arriba a la derecha -->
+      <div class="position-absolute top-0 end-0 p-2 dropdown">
+        <i class="fa-regular fa-user fs-4" role="button" id="dropdownPerfil" data-bs-toggle="dropdown"
+          aria-expanded="false" style="cursor: pointer;"></i>
+
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownPerfil">
+          <li><a class="dropdown-item" (click)="editProfile()">Editar perfil</a></li>
+          <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
+        </ul>
+      </div>
+
+      <div *ngIf="selectedUser">
+        <h3 class="mb-4 titulo">{{ isCreatingUser ? 'Crear usuario' : 'Editar usuario' }}</h3>
+        <app-user-form [user]="selectedUser" (saved)="onUserSaved()"></app-user-form>
+      </div>
+
+      <div *ngIf="selectedCourse">
+        <h3 class="mb-4 titulo">{{ isCreatingCourse ? 'Crear curso' : 'Editar curso' }}</h3>
+        <app-course-form [course]="selectedCourse" (saved)="onCourseSaved()"></app-course-form>
+      </div>
+
+    </div>
   </div>
-  
+</div>

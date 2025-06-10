@@ -25,7 +25,12 @@ export class UserFormComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['user'] && this.user) {
       this.isEditing = !!this.user.id;
-      this.userForm.patchValue({ ...this.user, password: '' }); // nunca mostramos la password
+  
+      if (this.isEditing) {
+        this.userForm.patchValue({ ...this.user, password: '' });
+      } else {
+        this.userForm.reset(); 
+      } 
     }
   }
 

@@ -11,8 +11,9 @@ import { UserService } from '../../services/user.service';
 })
 export class UserListComponent implements OnChanges {
   @Input() reloadTrigger: any;
-  @Output() userSelected = new EventEmitter<any>();
   @Input() selectedUserId: number | null = null;
+  @Output() userSelected = new EventEmitter<any>();
+  @Output() userDeleted = new EventEmitter<number>();
 
 
   users: any[] = [];
@@ -49,7 +50,8 @@ export class UserListComponent implements OnChanges {
     this.loadingUsers.push(userId);
     try {
       await this.userService.deleteUser(userId);
-      this.loadUsers(); // recarga lista
+      this.userDeleted.emit(userId);
+      this.loadUsers(); 
     } catch (err) {
       console.error('❌ Error al eliminar usuario:', err);
     } finally {

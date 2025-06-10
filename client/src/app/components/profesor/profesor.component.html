@@ -27,7 +27,7 @@
         </div>
 
         <app-conversation-list *ngIf="selectedCourse" [courseId]="selectedCourse.id"
-          (threadSelected)="onThreadSelected($event)">
+          (threadSelected)="onThreadSelected($event)" (threadDeleted)="onThreadDeleted($event)">
         </app-conversation-list>
 
       </div>
@@ -56,8 +56,11 @@
         <div class="card shadow-sm mb-4">
           <div class="card-body"
             style="height: 400px; overflow-y: auto; background-repeat: no-repeat; background-position: center;">
-            <app-assistant-chat [courseId]="selectedCourse.id" [threadId]="selectedThreadId"
-              (threadCreated)="onThreadCreated($event)"></app-assistant-chat>
+            
+            <app-assistant-chat *ngIf="selectedCourse" [courseId]="selectedCourse.id" [threadId]="selectedThreadId"
+              [resetTrigger]="chatResetTrigger" (threadCreated)="onThreadCreated($event)">
+            </app-assistant-chat>
+
           </div>
         </div>
 

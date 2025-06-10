@@ -33,7 +33,8 @@ export class ProfesorComponent implements AfterViewInit {
   ) { }
 
   selectedCourse: any = null;
-  reloadCoursesFlag = Date.now(); // Para refrescar CourseList
+  reloadCoursesFlag = Date.now();
+  chatResetTrigger = Date.now();
   selectedThreadId: string | null = null;
   modalVisible = false;
   modalInstance: bootstrap.Modal | null = null;
@@ -41,7 +42,7 @@ export class ProfesorComponent implements AfterViewInit {
   @ViewChild(DocumentListComponent) docListComponent!: DocumentListComponent;
   @ViewChild(AssistantChatComponent) assistantChatComponent!: AssistantChatComponent;
   @ViewChild(ConversationListComponent) conversationListComponent!: ConversationListComponent;
-  
+
   ngAfterViewInit(): void { }
 
   onDocumentUploaded() {
@@ -52,13 +53,13 @@ export class ProfesorComponent implements AfterViewInit {
     if (!course || course.id === this.selectedCourse?.id) {
       return;
     }
-  
+
     // ✔️ Curso distinto: sí resetea
     this.selectedCourse = course;
     this.selectedThreadId = null;
     this.assistantChatComponent?.loadHistory([]);
   }
-  
+
 
   loadCourses() {
     console.log("🔄 Recargando cursos...");
@@ -99,13 +100,18 @@ export class ProfesorComponent implements AfterViewInit {
       });
   }
 
-  startNewConversation() {
-    console.log('🆕 Iniciando nueva conversación');
-    this.selectedThreadId = null;
-    this.assistantChatComponent?.loadHistory([]);
-    this.assistantChatComponent.forceNewThread = true; // 🔥 Clave
+  onThreadDeleted(deletedThreadId: number) {
+    if (this.selectedThreadId === deletedThreadId.toString()) {
+      this.selectedThreadId = null;
+      this.chatResetTrigger = Date.now(); // 🔁 fuerza limpieza
+    }
   }
 
+  startNewConversation() {
+    this.selectedThreadId = null;
+    this.chatResetTrigger = Date.now(); // 🔁 fuerza limpieza
+  }
+  
   onThreadCreated(newThreadId: string) {
     console.log('🧵 Nuevo thread creado:', newThreadId);
     this.selectedThreadId = newThreadId;
@@ -121,24 +127,24 @@ export class ProfesorComponent implements AfterViewInit {
   }
 
   logout() {
-    localStorage.clear(); 
+    localStorage.clear();
     this.router.navigate(['/home']);
   }
 
   editProfile() {
     // Puedes abrir un modal o navegar a una pantalla de edición
-    alert('Funcionalidad de editar perfil pendiente'); 
+    alert('Funcionalidad de editar perfil pendiente');
   }
 
   onCourseDeleted(deletedCourseId: number) {
     if (this.selectedCourse?.id === deletedCourseId) {
       this.selectedCourse = null;
       this.selectedThreadId = null;
-  
+
       // Opcional: Limpia el historial del chat si ya está montado
       this.assistantChatComponent?.loadHistory([]);
     }
-  
+
     // ⚡ Refresca lista de cursos para que se actualice visualmente
     this.reloadCoursesFlag = Date.now();
   }

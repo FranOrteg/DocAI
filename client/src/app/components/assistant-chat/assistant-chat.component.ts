@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AssistantService } from '../../services/assistant.service';
@@ -10,10 +10,11 @@ import { AssistantService } from '../../services/assistant.service';
   templateUrl: './assistant-chat.component.html',
   styleUrls: ['./assistant-chat.component.css']
 })
-export class AssistantChatComponent {
+export class AssistantChatComponent implements OnChanges {
   @Input() courseId!: number;
   @Input() threadId: string | null = null;
   @Input() forceNewThread: boolean = false;
+  @Input() resetTrigger: number = 0;
   @Output() threadCreated = new EventEmitter<string>();
 
   @ViewChild('messagesContainer') messagesContainer!: ElementRef;
@@ -23,6 +24,14 @@ export class AssistantChatComponent {
   loading = false;
 
   constructor(private assistantService: AssistantService) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['resetTrigger']) {
+      console.log('🔁 Reset trigger activado, limpiando chat');
+      this.messages = [];
+      this.forceNewThread = true;
+    }
+  }  
 
   async sendMessage() {
     if (!this.userInput.trim()) return;

@@ -12,6 +12,7 @@ import { AssistantService } from '../../services/assistant.service';
 export class ConversationListComponent implements OnChanges {
   @Input() courseId!: number;
   @Output() threadSelected = new EventEmitter<any>();
+  @Output() threadDeleted = new EventEmitter<number>();
 
   conversations: any[] = [];
   loading = false;
@@ -47,6 +48,7 @@ export class ConversationListComponent implements OnChanges {
       .then(() => {
         // Recargar lista de conversaciones
         this.loadConversations();
+        this.threadDeleted.emit(threadId); 
       })
       .catch(error => {
         console.error('❌ Error al borrar conversación:', error);
