@@ -1,0 +1,54 @@
+.fa-regular {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.fa-regular:hover {
+    font-size: 26px;
+}
+
+.fa-user {
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+.fa-user:hover {
+    font-size: 28px;
+    color: gray;
+}
+
+.sidebar {
+    background: rgb(225, 225, 225);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.central {
+    background: rgb(240, 240, 240);
+}
+
+.row {
+    min-height: 100vh;
+}
+
+h4 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+li {
+    cursor: pointer;
+}
+
+.container.mb-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.titulo {
+    text-align: center;
+    margin-top: 30px;
+}

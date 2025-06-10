@@ -1,0 +1,20 @@
+form {
+    max-width: 600px;
+    margin: auto;
+}
+
+.mb-3 label {
+    font-weight: bold;
+}
+
+input, textarea, select {
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+}

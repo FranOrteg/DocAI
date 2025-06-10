@@ -12,6 +12,8 @@ import { UserService } from '../../services/user.service';
 export class UserListComponent implements OnChanges {
   @Input() reloadTrigger: any;
   @Output() userSelected = new EventEmitter<any>();
+  @Input() selectedUserId: number | null = null;
+
 
   users: any[] = [];
   loading = false;

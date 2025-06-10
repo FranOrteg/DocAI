@@ -1,19 +1,34 @@
-<div *ngIf="loading">Cargando usuarios...</div>
+<div class="container">
 
-<ul *ngIf="!loading && users.length > 0" class="list-group">
-  <li *ngFor="let user of users" class="list-group-item d-flex justify-content-between align-items-center"
-      (click)="selectUser(user)">
-    <div>
-      <strong>{{ user.name }}</strong>
-      <div class="text-muted">{{ user.email }}</div>
-    </div>
-    <i class="fa-regular fa-trash-can text-danger"
-       (click)="deleteUser(user.id); $event.stopPropagation()"
-       [class.disabled]="loadingUsers.includes(user.id)"
-       style="cursor: pointer;"></i>
-  </li>
-</ul>
+  <div *ngIf="loading">Cargando usuarios...</div>
 
-<div *ngIf="!loading && users.length === 0" class="text-muted">
-  No hay usuarios registrados.
+  <ul *ngIf="!loading && users.length > 0" class="list-group">
+    <li *ngFor="let user of users"
+        (click)="selectUser(user)"
+        class="list-group-item"
+        [class.active]="user.id === selectedUserId">
+
+      <div class="course-content">
+        <strong class="name">{{ user.name }}</strong>
+        <div class="description">{{ user.email }} — {{ user.role }}</div>
+      </div>
+
+      <ng-container *ngIf="!loadingUsers.includes(user.id); else loadingIcon">
+        <i class="fa-regular fa-trash-can" 
+           (click)="deleteUser(user.id); $event.stopPropagation()"></i>
+      </ng-container>
+
+      <ng-template #loadingIcon>
+        <div class="spinner-border spinner-border-sm text-secondary" role="status">
+          <span class="visually-hidden">Eliminando...</span>
+        </div>
+      </ng-template>
+
+    </li>
+  </ul>
+
+  <div *ngIf="!loading && users.length === 0" class="text-muted">
+    No hay usuarios registrados.
+  </div>
+
 </div>

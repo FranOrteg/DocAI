@@ -26,6 +26,8 @@ export class AdministradorComponent {
   selectedCourse: any = null;
   reloadUsersFlag = Date.now();
   reloadCoursesFlag = Date.now();
+  isCreatingUser = false;
+  isCreatingCourse = false;
 
   modalInstance: bootstrap.Modal | null = null;
 
@@ -34,20 +36,24 @@ export class AdministradorComponent {
   onUserSelected(user: any) {
     this.selectedCourse = null;
     this.selectedUser = user;
+    this.isCreatingUser = false;
   }
 
   onCourseSelected(course: any) {
     this.selectedUser = null;
     this.selectedCourse = course;
+    this.isCreatingCourse = false;
   }
 
   onCreateNew(type: 'user' | 'course') {
     if (type === 'user') {
       this.selectedUser = {};
       this.selectedCourse = null;
+      this.isCreatingUser = true;
     } else {
       this.selectedCourse = {};
       this.selectedUser = null;
+      this.isCreatingCourse = true;
     }
   }
 

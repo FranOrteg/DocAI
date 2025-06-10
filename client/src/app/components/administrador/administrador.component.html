@@ -38,14 +38,15 @@
         </div>
   
         <div *ngIf="selectedUser">
-          <h3 class="mb-4">Editar usuario</h3>
+          <h3 class="mb-4">{{ isCreatingUser ? 'Crear usuario' : 'Editar usuario' }}</h3>
           <app-user-form [user]="selectedUser" (saved)="onUserSaved()"></app-user-form>
-        </div>
+        </div>        
   
         <div *ngIf="selectedCourse">
-          <h3 class="mb-4">Editar curso</h3>
+          <h3 class="mb-4">{{ isCreatingCourse ? 'Crear curso' : 'Editar curso' }}</h3>
           <app-course-form [course]="selectedCourse" (saved)="onCourseSaved()"></app-course-form>
         </div>
+        
       </div>
     </div>
   </div>

@@ -1,0 +1,51 @@
+.list-group-item {
+    margin-bottom: 5px;
+    border-radius: 15px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    height: auto; 
+  }
+  
+  .list-group {
+    margin-top: 10px;
+  }
+  
+  .course-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .name {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .description {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .fa-regular {
+    font-size: 18px;
+    padding-left: 10px;
+  }
+  
+  .fa-regular:hover {
+    color: rgb(170, 46, 46);
+    font-size: 20px;
+  }
+  
+  .spinner-border {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  
+  .list-group-item.active {
+    background-color: #fcfcfc;  
+    border: 2px solid #f0fe87;
+    color: inherit;             
+  }
+  
