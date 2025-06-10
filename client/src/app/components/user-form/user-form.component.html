@@ -13,19 +13,21 @@
       <label>Rol</label>
       <select formControlName="role" class="form-control">
         <option value="">Selecciona un rol</option>
-        <option value="admin">Administrador</option>
-        <option value="profesor">Profesor</option>
-        <option value="alumno">Alumno</option>
+        <option value="Administrador">Administrador</option>
+        <option value="Profesor">Profesor</option>
+        <option value="Alumno">Alumno</option>
       </select>
-    </div>
+    </div>    
   
     <div class="mb-3" *ngIf="!isEditing">
       <label>Contraseña</label>
       <input type="password" formControlName="password" class="form-control" />
     </div>
   
-    <button type="submit" class="btn btn-primary" [disabled]="loading">
-      {{ isEditing ? 'Guardar cambios' : 'Crear usuario' }}
-    </button>
+    <div class="boton">
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        {{ isEditing ? 'Guardar cambios' : 'Crear usuario' }}
+      </button>
+    </div>
   </form>
   

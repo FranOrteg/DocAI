@@ -121,13 +121,13 @@ export class ProfesorComponent implements AfterViewInit {
   }
 
   logout() {
-    localStorage.clear(); // o tu lógica de logout
+    localStorage.clear(); 
     this.router.navigate(['/home']);
   }
 
   editProfile() {
     // Puedes abrir un modal o navegar a una pantalla de edición
-    alert('Funcionalidad de editar perfil pendiente'); // temporal
+    alert('Funcionalidad de editar perfil pendiente'); 
   }
 
   onCourseDeleted(deletedCourseId: number) {

@@ -23,11 +23,17 @@ export class CourseFormComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['course'] && this.course) {
-      this.isEditing = !!this.course.id;
-      this.courseForm.patchValue(this.course);
+    if (changes['course']) {
+      this.isEditing = !!this.course?.id;
+  
+      if (this.isEditing) {
+        this.courseForm.patchValue(this.course);
+      } else {
+        this.courseForm.reset(); 
+      }
     }
   }
+  
 
   initForm() {
     this.courseForm = this.fb.group({

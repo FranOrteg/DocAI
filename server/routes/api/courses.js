@@ -12,7 +12,8 @@ const {
     createCourse,
     getCoursesByUserId,
     getCourseById,
-    deleteCourseById
+    deleteCourseById,
+    updateCourse
 } = require('../../models/courses.model');
 const {
     deleteAllDocumentsByCourse,

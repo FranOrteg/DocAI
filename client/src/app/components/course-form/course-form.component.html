@@ -9,8 +9,10 @@
       <textarea formControlName="description" class="form-control" rows="4"></textarea>
     </div>
   
-    <button type="submit" class="btn btn-primary" [disabled]="loading">
-      {{ isEditing ? 'Guardar cambios' : 'Crear curso' }}
-    </button>
+    <div class="boton">
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        {{ isEditing ? 'Guardar cambios' : 'Crear curso' }}
+      </button>
+    </div>
   </form>
   
