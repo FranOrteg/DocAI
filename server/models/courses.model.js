@@ -40,6 +40,13 @@ const deleteCourseById = (id) => {
     return db.query('DELETE FROM courses WHERE id = ?', [id]);
 };
 
+const updateCourse = (id, { name, description }) => {
+    return db.query(
+        'UPDATE courses SET name = ?, description = ? WHERE id = ?',
+        [name, description, id]
+    );
+};
+
 
 module.exports = {
     createCourse,
@@ -48,5 +55,6 @@ module.exports = {
     getAssistantId,
     getCourseById,
     setVectorStoreId,
-    deleteCourseById
+    deleteCourseById,
+    updateCourse
 };

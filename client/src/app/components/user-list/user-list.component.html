@@ -1,0 +1,19 @@
+<div *ngIf="loading">Cargando usuarios...</div>
+
+<ul *ngIf="!loading && users.length > 0" class="list-group">
+  <li *ngFor="let user of users" class="list-group-item d-flex justify-content-between align-items-center"
+      (click)="selectUser(user)">
+    <div>
+      <strong>{{ user.name }}</strong>
+      <div class="text-muted">{{ user.email }}</div>
+    </div>
+    <i class="fa-regular fa-trash-can text-danger"
+       (click)="deleteUser(user.id); $event.stopPropagation()"
+       [class.disabled]="loadingUsers.includes(user.id)"
+       style="cursor: pointer;"></i>
+  </li>
+</ul>
+
+<div *ngIf="!loading && users.length === 0" class="text-muted">
+  No hay usuarios registrados.
+</div>

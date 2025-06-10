@@ -130,6 +130,26 @@ router.get('/my', checkToken, async (req, res) => {
     }
 });
 
+// Actualizar curso
+router.put('/:id', checkToken, async (req, res) => {
+    try {
+        const courseId = req.params.id;
+        const { name, description } = req.body;
+
+        const [existing] = await getCourseById(courseId);
+        if (existing.length === 0) {
+            return res.status(404).json({ fatal: 'Curso no encontrado' });
+        }
+
+        await updateCourse(courseId, { name, description });
+        res.json({ success: 'Curso actualizado' });
+
+    } catch (error) {
+        console.error('❌ Error actualizando curso:', error);
+        res.status(500).json({ fatal: error.message });
+    }
+});
+
 
 
 module.exports = router;

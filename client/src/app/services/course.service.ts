@@ -41,4 +41,7 @@ export class CourseService {
     );
   }
 
+  updateCourse(courseId: number, courseData: any): Promise<any> {
+    return firstValueFrom(this.http.put(`${this.baseUrl}/${courseId}`, courseData));
+  }
 }

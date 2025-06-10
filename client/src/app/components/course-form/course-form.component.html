@@ -1,0 +1,16 @@
+<form [formGroup]="courseForm" (ngSubmit)="submitForm()">
+    <div class="mb-3">
+      <label>Nombre del curso</label>
+      <input type="text" formControlName="name" class="form-control" />
+    </div>
+  
+    <div class="mb-3">
+      <label>Descripción</label>
+      <textarea formControlName="description" class="form-control" rows="4"></textarea>
+    </div>
+  
+    <button type="submit" class="btn btn-primary" [disabled]="loading">
+      {{ isEditing ? 'Guardar cambios' : 'Crear curso' }}
+    </button>
+  </form>
+  

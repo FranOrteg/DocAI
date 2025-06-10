@@ -1,0 +1,31 @@
+<form [formGroup]="userForm" (ngSubmit)="submitForm()">
+    <div class="mb-3">
+      <label>Nombre</label>
+      <input type="text" formControlName="name" class="form-control" />
+    </div>
+  
+    <div class="mb-3">
+      <label>Email</label>
+      <input type="email" formControlName="email" class="form-control" />
+    </div>
+  
+    <div class="mb-3">
+      <label>Rol</label>
+      <select formControlName="role" class="form-control">
+        <option value="">Selecciona un rol</option>
+        <option value="admin">Administrador</option>
+        <option value="profesor">Profesor</option>
+        <option value="alumno">Alumno</option>
+      </select>
+    </div>
+  
+    <div class="mb-3" *ngIf="!isEditing">
+      <label>Contraseña</label>
+      <input type="password" formControlName="password" class="form-control" />
+    </div>
+  
+    <button type="submit" class="btn btn-primary" [disabled]="loading">
+      {{ isEditing ? 'Guardar cambios' : 'Crear usuario' }}
+    </button>
+  </form>
+  

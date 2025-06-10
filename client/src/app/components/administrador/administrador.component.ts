@@ -1,11 +1,72 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UserListComponent } from '../user-list/user-list.component';
+import { CourseListComponent } from '../course-list/course-list.component';
+import { UserFormComponent } from '../user-form/user-form.component';
+import { CourseFormComponent } from '../course-form/course-form.component';
+import { Router } from '@angular/router';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-administrador',
-  imports: [],
+  standalone:true,
+  imports: [
+    CommonModule,
+    UserListComponent,
+    CourseListComponent,
+    UserFormComponent,
+    CourseFormComponent
+  ],
   templateUrl: './administrador.component.html',
   styleUrl: './administrador.component.css'
 })
-export class AdministradorComponent {
 
+export class AdministradorComponent {
+  selectedUser: any = null;
+  selectedCourse: any = null;
+  reloadUsersFlag = Date.now();
+  reloadCoursesFlag = Date.now();
+
+  modalInstance: bootstrap.Modal | null = null;
+
+  constructor(private router: Router) {}
+
+  onUserSelected(user: any) {
+    this.selectedCourse = null;
+    this.selectedUser = user;
+  }
+
+  onCourseSelected(course: any) {
+    this.selectedUser = null;
+    this.selectedCourse = course;
+  }
+
+  onCreateNew(type: 'user' | 'course') {
+    if (type === 'user') {
+      this.selectedUser = {};
+      this.selectedCourse = null;
+    } else {
+      this.selectedCourse = {};
+      this.selectedUser = null;
+    }
+  }
+
+  onUserSaved() {
+    this.reloadUsersFlag = Date.now();
+    this.selectedUser = null;
+  }
+
+  onCourseSaved() {
+    this.reloadCoursesFlag = Date.now();
+    this.selectedCourse = null;
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/home']);
+  }
+
+  editProfile() {
+    alert('Funcionalidad de editar perfil pendiente');
+  }
 }
