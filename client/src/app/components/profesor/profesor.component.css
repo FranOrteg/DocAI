@@ -3,6 +3,10 @@
     cursor: pointer;
 }
 
+.fa-regular:hover {
+    font-size: 26px;
+  }  
+
 .fa-user {
     padding-right: 20px;
     padding-top: 20px;
