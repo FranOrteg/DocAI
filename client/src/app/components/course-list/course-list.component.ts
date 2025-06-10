@@ -14,6 +14,7 @@ export class CourseListComponent implements OnChanges {
   @Input() reloadTrigger: any;
   @Input() selectedCourseId: number | null = null;
   @Output() courseSelected = new EventEmitter<any>();
+  @Output() courseDeleted = new EventEmitter<number>();
 
   courses: any[] = [];
   loading = false;
@@ -49,6 +50,7 @@ export class CourseListComponent implements OnChanges {
 
         if (this.selectedCourseId === courseId) {
           this.courseSelected.emit(null);
+          this.courseDeleted.emit(courseId);
         }
       } catch (error) {
         alert('Error al borrar el curso');

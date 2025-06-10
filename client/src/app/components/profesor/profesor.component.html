@@ -15,7 +15,7 @@
         </div>
 
         <app-course-list [reloadTrigger]="reloadCoursesFlag" [selectedCourseId]="selectedCourse?.id"
-          (courseSelected)="onCourseSelected($event)"></app-course-list>
+          (courseSelected)="onCourseSelected($event)" (courseDeleted)="onCourseDeleted($event)"></app-course-list>
 
       </div>
 
@@ -26,8 +26,10 @@
           <i class="fa-regular fa-plus" (click)="startNewConversation()"></i>
         </div>
 
-        <app-conversation-list [courseId]="selectedCourse?.id"
-          (threadSelected)="onThreadSelected($event)"></app-conversation-list>
+        <app-conversation-list *ngIf="selectedCourse" [courseId]="selectedCourse.id"
+          (threadSelected)="onThreadSelected($event)">
+        </app-conversation-list>
+
       </div>
     </div>
 

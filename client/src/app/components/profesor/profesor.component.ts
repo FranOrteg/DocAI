@@ -49,12 +49,16 @@ export class ProfesorComponent implements AfterViewInit {
   }
 
   onCourseSelected(course: any) {
+    if (!course || course.id === this.selectedCourse?.id) {
+      return;
+    }
+  
+    // ✔️ Curso distinto: sí resetea
     this.selectedCourse = course;
-
-    // 🔁 Resetear conversación y thread
     this.selectedThreadId = null;
     this.assistantChatComponent?.loadHistory([]);
   }
+  
 
   loadCourses() {
     console.log("🔄 Recargando cursos...");
@@ -126,4 +130,16 @@ export class ProfesorComponent implements AfterViewInit {
     alert('Funcionalidad de editar perfil pendiente'); // temporal
   }
 
+  onCourseDeleted(deletedCourseId: number) {
+    if (this.selectedCourse?.id === deletedCourseId) {
+      this.selectedCourse = null;
+      this.selectedThreadId = null;
+  
+      // Opcional: Limpia el historial del chat si ya está montado
+      this.assistantChatComponent?.loadHistory([]);
+    }
+  
+    // ⚡ Refresca lista de cursos para que se actualice visualmente
+    this.reloadCoursesFlag = Date.now();
+  }
 }
