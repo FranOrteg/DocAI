@@ -58,7 +58,7 @@
             style="height: 400px; overflow-y: auto; background-repeat: no-repeat; background-position: center;">
             
             <app-assistant-chat *ngIf="selectedCourse" [courseId]="selectedCourse.id" [threadId]="selectedThreadId"
-              [resetTrigger]="chatResetTrigger" (threadCreated)="onThreadCreated($event)">
+              (threadCreated)="onThreadCreated($event)">
             </app-assistant-chat>
 
           </div>

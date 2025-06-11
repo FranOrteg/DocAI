@@ -34,7 +34,6 @@ export class ProfesorComponent implements AfterViewInit {
 
   selectedCourse: any = null;
   reloadCoursesFlag = Date.now();
-  chatResetTrigger = Date.now();
   selectedThreadId: string | null = null;
   modalVisible = false;
   modalInstance: bootstrap.Modal | null = null;
@@ -100,18 +99,20 @@ export class ProfesorComponent implements AfterViewInit {
       });
   }
 
-  onThreadDeleted(deletedThreadId: number) {
-    if (this.selectedThreadId === deletedThreadId.toString()) {
+  onThreadDeleted(deleted: { id: number, assistant_thread_id: string }) {
+    if (!this.selectedThreadId || this.selectedThreadId === deleted.assistant_thread_id) {
       this.selectedThreadId = null;
-      this.chatResetTrigger = Date.now(); // 🔁 fuerza limpieza
+      this.assistantChatComponent?.resetChat(); // 👈 limpieza directa
     }
   }
+  
+
 
   startNewConversation() {
     this.selectedThreadId = null;
-    this.chatResetTrigger = Date.now(); // 🔁 fuerza limpieza
+    this.assistantChatComponent?.resetChat();
   }
-  
+
   onThreadCreated(newThreadId: string) {
     console.log('🧵 Nuevo thread creado:', newThreadId);
     this.selectedThreadId = newThreadId;
